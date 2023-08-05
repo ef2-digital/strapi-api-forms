@@ -1,0 +1,34 @@
+
+{
+  "kind": "collectionType",
+  "collectionName": "submissions",
+  "info": {
+    "singularName": "submission",
+    "pluralName": "submissions",
+    "displayName": "submission"
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
+
+  "options": {
+    "draftAndPublish": false,
+    "privateAttributes": ["createdAt", "updatedAt"]
+  },
+  "attributes": {
+    "submission": {
+      "type": "json"
+    },
+    "form": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::api-forms.form",
+      "inversedBy": "submission"
+    }
+  }
+}

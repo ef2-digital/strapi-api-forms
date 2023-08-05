@@ -3,7 +3,8 @@
 
   "compilerOptions": {
     "target": "ESNext",
-    "strict": true
+    "strict": true,
+    "jsx": "preserve"
   },
 
   "include": ["admin", "custom.d.ts"],

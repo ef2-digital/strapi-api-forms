@@ -14,7 +14,7 @@ export default {
       icon: PluginIcon,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
-        defaultMessage: name,
+        defaultMessage: "API Forms",
       },
       Component: async () => {
         const component = await import(/* webpackChunkName: "[request]" */ './pages/App');

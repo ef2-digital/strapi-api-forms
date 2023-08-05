@@ -760,7 +760,7 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@strapi/design-system@^1.6.3":
+"@strapi/design-system@^1.8.2":
   version "1.8.2"
   resolved "https://registry.yarnpkg.com/@strapi/design-system/-/design-system-1.8.2.tgz#8f70d7231f5a3bf43ac9e36bf903fc13f06ae746"
   integrity sha512-PBS/F9bCiNbM4hr6AY4QOR+QhxajLvtoJKLIhPfmmPCkPorT46DzvggTveJku/1bWiJmkVHhqytsKEhrvMsjHQ==

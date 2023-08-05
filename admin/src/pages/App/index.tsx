@@ -5,20 +5,23 @@
  *
  */
 
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import { AnErrorOccurred } from '@strapi/helper-plugin';
-import pluginId from '../../pluginId';
-import HomePage from '../HomePage';
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import { AnErrorOccurred } from "@strapi/helper-plugin";
+import pluginId from "../../pluginId";
+import Dashboard from "../Dashboard";
+import Form from "../Form";
+import { FormProvider } from "../../hooks/useForm";
 
 const App = () => {
   return (
-    <div>
+    <FormProvider>
       <Switch>
-        <Route path={`/plugins/${pluginId}`} component={HomePage} exact />
+        <Route path={`/plugins/${pluginId}/form/add`} component={Form} exact />
+        <Route path={`/plugins/${pluginId}`} component={Dashboard} exact />
         <Route component={AnErrorOccurred} />
       </Switch>
-    </div>
+    </FormProvider>
   );
 };
 

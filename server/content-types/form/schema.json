@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "forms",
+  "info": {
+    "singularName": "form",
+    "pluralName": "forms",
+    "displayName": "form"
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
+
+  "options": {
+    "draftAndPublish": false
+    },
+
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "fields": {
+      "type": "json"
+    },
+    "submission": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::api-forms.submission",
+      "mappedBy": "form"
+    }
+  }
+}

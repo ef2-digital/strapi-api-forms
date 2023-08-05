@@ -1,5 +1,7 @@
-import myService from './my-service';
+import form from "./form-service";
+import submission from "./submission";
 
 export default {
-  myService,
+  form,
+  submission,
 };
