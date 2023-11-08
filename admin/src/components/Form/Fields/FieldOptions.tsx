@@ -1,9 +1,11 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FieldTypeEnum } from "../../../utils/enums";
 import {
   Box,
   Checkbox,
+  SingleSelect,
+  SingleSelectOption,
   Stack,
   Textarea,
   TextInput,
@@ -11,13 +13,13 @@ import {
   Typography,
 } from "@strapi/design-system";
 import { useIntl } from "react-intl";
-import { FieldConfigProps, FieldOptionProps } from "../../../utils/types";
+import { FieldConfigProps } from "../../../utils/types";
 import pluginId from "../../../pluginId";
 
 type FieldOptions = {
   field: FieldTypeEnum;
   config: FieldConfigProps;
-  options: FieldOptionProps[] | [];
+  options: string;
   setOptions: (props: any) => void;
   setConfig: (props: any) => void;
 };
@@ -29,28 +31,32 @@ const FieldOptions = ({
   setOptions,
 }: FieldOptions) => {
   let fieldOptions = <></>;
-  const [content, setContent] = useState<FieldOptionProps[] | []>(options);
+
+  const [content, setContent] = useState<string>(options);
+
   const [checked, setChecked] = useState<boolean | {}>(config.required);
+  const [checkedUi, setCheckedUi] = useState<boolean | {}>(
+    config.ui.hideLabel!
+  );
 
   const { formatMessage } = useIntl();
 
-  const formatOption = (content: string) => {
-    setContent(
-      content.split(",").map((option) => {
-        return { value: option, label: option };
-      })
-    );
-  };
-
   const setIsChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.currentTarget.checked);
-    setConfig({ required: event.currentTarget.checked });
+    setConfig({ ...config, required: event.currentTarget.checked });
   };
 
-  useEffect(() => {
-    setConfig({ required: checked });
-    setOptions(content);
-  }, [content]);
+  const setUiSettings = (
+    value: string | boolean,
+    name: string,
+    checked: boolean
+  ) => {
+    if (checked) {
+      setCheckedUi(value);
+    }
+
+    setConfig({ ...config, ui: { ...config.ui, [name]: value } });
+  };
 
   switch (field) {
     case FieldTypeEnum.Select:
@@ -58,8 +64,9 @@ const FieldOptions = ({
       fieldOptions = (
         <Box>
           <Textarea
+            onBlur={() => setOptions(content)}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              formatOption(event.currentTarget.value)
+              setContent(event.currentTarget.value)
             }
             label={formatMessage({
               id: `${pluginId}.forms.fields.extra_props.children`,
@@ -69,11 +76,7 @@ const FieldOptions = ({
               id: `${pluginId}.forms.fields.extra_props.children_placeholder`,
             })}
           >
-            {Object.keys(content).length > 0
-              ? Object.values(content)
-                  .map((value: FieldOptionProps) => value.value)
-                  .join(",")
-              : ""}
+            {content}
           </Textarea>
         </Box>
       );
@@ -86,7 +89,55 @@ const FieldOptions = ({
 
       <Divider />
       <Typography variant="omega" fontWeight="bold">
-        {formatMessage({ id: `${pluginId}.forms.fields.extra_props.validation` })}
+        {formatMessage({
+          id: `${pluginId}.forms.fields.extra_props.ui`,
+        })}
+      </Typography>
+
+      <Typography variant="omega" fontWeight="bold">
+        {formatMessage({
+          id: `${pluginId}.forms.fields.extra_props.validation`,
+        })}
+      </Typography>
+      <Checkbox
+        name="isRequired"
+        checked={checkedUi}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setUiSettings(event.currentTarget.checked, "hideLabel", true)
+        }
+      >
+        {formatMessage({
+          id: `${pluginId}.forms.fields.extra_props.hideLabel`,
+        })}
+      </Checkbox>
+      <TextInput
+        label={formatMessage({
+          id: `${pluginId}.forms.fields.extra_props.classNames`,
+        })}
+        name="classNames"
+        onBlur={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setUiSettings(event.currentTarget.value, "classNames", false)
+        }
+      ></TextInput>
+      <SingleSelect
+        label={formatMessage({
+          id: `${pluginId}.forms.fields.extra_props.width`,
+        })}
+        value={config.ui?.width}
+        placeholder="Select width of field"
+        onChange={(event: string) => setUiSettings(event, "width", false)}
+      >
+        <SingleSelectOption value="100%">100%</SingleSelectOption>
+        <SingleSelectOption value="75%">75%</SingleSelectOption>
+        <SingleSelectOption value="50%">50%</SingleSelectOption>
+        <SingleSelectOption value="25%">25%</SingleSelectOption>
+      </SingleSelect>
+
+      <Divider />
+      <Typography variant="omega" fontWeight="bold">
+        {formatMessage({
+          id: `${pluginId}.forms.fields.extra_props.validation`,
+        })}
       </Typography>
       <Checkbox
         name="isRequired"

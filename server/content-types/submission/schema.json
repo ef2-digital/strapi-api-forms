@@ -1,4 +1,3 @@
-
 {
   "kind": "collectionType",
   "collectionName": "submissions",
@@ -26,9 +25,9 @@
     },
     "form": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "plugin::api-forms.form",
-      "inversedBy": "submission"
+      "inversedBy": "submissions"
     }
   }
 }

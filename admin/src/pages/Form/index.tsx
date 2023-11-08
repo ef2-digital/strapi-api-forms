@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { useIntl } from "react-intl";
 import { FormContext } from "../../hooks/useForm";
 import formRequests from "../../api/form";
 import { Types } from "../../hooks/formReducer";
 import Header from "../../components/Form/Header";
-import { useIntl } from "react-intl";
 import FormFields from "../../components/Form/FormFields";
 import AlertWrapper from "../../components/Layout/AlertWrapper";
 
@@ -23,24 +23,29 @@ import {
   Typography,
 } from "@strapi/design-system";
 import pluginId from "../../pluginId";
+import { FormType } from "../../utils/types";
 
 type FormParams = {
   id?: string;
 };
 
 const Form = () => {
+  const history = useHistory();
   const { formatMessage } = useIntl();
   const { id } = useParams<FormParams>();
   const { state, dispatch } = useContext(FormContext);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showAlert, toggleAlert] = useState<boolean>(false);
   const [alertVariant, setAlertVariant] = useState<string>("success");
+  const [fetchedForm, setFetchedForm] = useState<FormType | null>(null);
 
   useEffect(() => {
     if (!id) {
       dispatch({
         type: Types.Set_Form,
-        payload: { form: { attributes: {title: "", fields: JSON.stringify([])} } },
+        payload: {
+          form: { attributes: { title: "", fields: JSON.stringify([]) } },
+        },
       });
 
       setIsLoading(false);
@@ -48,15 +53,20 @@ const Form = () => {
       return;
     }
 
-    // formRequests
-    //   .getForm(id)
-    //   .then((result) => {
-    //     dispatch({ type: Types.Set_Form, payload: { form: result.data } });
-    //   })
-    //   .finally(() => setIsLoading(false));
+    formRequests
+      .getForm(id)
+      .then((result) => {
+        setFetchedForm(result);
+
+        dispatch({
+          type: Types.Set_Form,
+          payload: { form: { ...result } },
+        });
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
-  const onSave = () => {    
+  const onSave = async () => {
     if (state.form && !state.form.attributes.title) {
       setAlertVariant("danger");
 
@@ -67,8 +77,16 @@ const Form = () => {
     toggleAlert(true);
 
     state.form.attributes.fields = JSON.stringify(state.fields);
-    
-    formRequests.submitForm(state.form.attributes);
+
+    if (!id) {
+      const response = await formRequests.submitForm(state.form.attributes);
+
+      return history.push(`/plugins/${pluginId}/form/edit/${response.data.id}`);
+    }
+
+    const response = await formRequests.updateForm(id!, state.form.attributes);
+
+    window.location.reload();
   };
 
   if (isLoading) {
@@ -77,7 +95,15 @@ const Form = () => {
 
   return (
     <>
-      <Header save={onSave} />
+      <Header
+        save={onSave}
+        title={fetchedForm?.attributes?.title}
+        subtitle={
+          Boolean(fetchedForm)
+            ? formatMessage({ id: `${pluginId}.forms.edit.subtitle` })
+            : ""
+        }
+      />
 
       {showAlert ? (
         <AlertWrapper variant={alertVariant} toggleAlert={toggleAlert} />
@@ -116,10 +142,10 @@ const Form = () => {
                 </Stack>
               </Field>
             </GridItem>
-            </Grid>
-            </Box>
-            <Box>
-            <Grid>
+          </Grid>
+        </Box>
+        <Box>
+          <Grid>
             <GridItem padding={1} col={12} s={12}>
               <Field name="fields">
                 <Stack spacing={2}>

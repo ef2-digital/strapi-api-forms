@@ -1,3 +1,4 @@
+//@ts-nocheck
 import * as React from "react";
 import { useContext, useState } from "react";
 
@@ -56,9 +57,20 @@ const FieldModal = ({
   const [field, setField] = useState<FieldTypeEnum | null>(currentField?.type!);
 
   const [config, setConfig] = useState<FieldConfigProps>(currentField?.config!);
-  const [options, setOptions] = useState<FieldOptionProps[] | []>([]);
+  const [options, setOptions] = useState<FieldOptionProps[] | []>(
+    currentField?.options!
+  );
 
   const isFilled = () => label && field;
+
+  const formatOptions = (content: string) => {
+    setOptions(
+      content.split("\n").map((option) => {
+        return { value: option, label: option };
+      })
+    );
+  };
+
   const isInvalid = () => {
     if (!state.fields.length && !currentField?.name) {
       return false;
@@ -78,7 +90,7 @@ const FieldModal = ({
 
     if (!isFilled() || isInvalid()) {
       if (isInvalid()) {
-        setAlertMessage(formatMessage({ id: `${pluginId}.exists`}));
+        setAlertMessage(formatMessage({ id: `${pluginId}.exists` }));
       }
 
       setAlert(true);
@@ -168,8 +180,8 @@ const FieldModal = ({
                 field={field!}
                 config={config}
                 setConfig={setConfig}
-                options={options}
-                setOptions={setOptions}
+                options={options.map((option) => option.value).join("\n")}
+                setOptions={formatOptions}
               />
             </Stack>
           </ModalBody>

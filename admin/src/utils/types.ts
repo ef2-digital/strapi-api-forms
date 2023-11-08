@@ -15,6 +15,22 @@ export interface FormResponse {
   meta: PaginationObject;
 }
 
+export interface SubmissionsResponse {
+  data: SubmissionType[] | [];
+  meta: PaginationObject;
+}
+
+export interface SubmissionResponse {
+  data: SubmissionDetailType;
+}
+
+export interface FormRequest {
+  data: FormType;
+}
+
+export interface NotificationRequest {
+  data: NotificationType;
+}
 export interface FormType {
   id?: number | null;
   attributes: {
@@ -25,17 +41,47 @@ export interface FormType {
     submission?: {
       count: number;
     };
+    submissions?: SubmissionType[];
+    notifications?: NotificationType[];
   };
+}
+
+export interface NotificationType {
+  id: number;
+  from: string;
+  to: string;
+  subject: string;
+  enabled: boolean;
+  identifier: string;
+  createdAt: string;
+  updatedAt: string;
+  message: string;
+  service: string;
 }
 
 export type FormCollectionType = Array<FormType>;
 
 export interface SubmissionType {
   id: number;
-  form?: FormType;
+  form?: {
+    title: string;
+  };
   submission: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface SubmissionDetailType {
+  id: number;
+  attributes: {
+    form?: {
+      id?: string;
+      title: string;
+    };
+    submission: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
 
 export type SubmissionCollectionType = Array<SubmissionType>;
@@ -54,14 +100,21 @@ export type FieldOptionProps = {
 };
 export type FieldConfigProps = {
   required: boolean;
-  width?: string;
+  ui: {
+    width?: string;
+    classNames?: string;
+    hideLabel?: boolean;
+  };
 };
 
 export const FieldTypeDefaultProps = {
   label: "",
   name: "",
   options: [],
-  config: { required: false },
+  config: {
+    required: false,
+    ui: { width: "100%", classNames: "", hideLabel: false },
+  },
 };
 
 export type FieldCollectionType = Array<FieldType>;

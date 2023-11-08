@@ -10,8 +10,19 @@ import {
 } from "@strapi/design-system";
 import { Trash, ExclamationMarkCircle } from "@strapi/icons";
 
-const Dialog = ({title, description, isVisible, setIsVisible }: { title: string, description: string, isVisible: boolean, setIsVisible: Function }
-) => {
+const Dialog = ({
+  title,
+  description,
+  isVisible,
+  setIsVisible,
+  confirmAction,
+}: {
+  title: string;
+  description: string;
+  isVisible: boolean;
+  setIsVisible: Function;
+  confirmAction: Function;
+}) => {
   return (
     <StrapiDialog
       onClose={() => setIsVisible(false)}
@@ -19,11 +30,9 @@ const Dialog = ({title, description, isVisible, setIsVisible }: { title: string,
       isOpen={isVisible}
     >
       <DialogBody icon={<ExclamationMarkCircle />}>
-        <Flex direction="column" alignItems="center" gap={2} >
+        <Flex direction="column" alignItems="center" gap={2}>
           <Flex justifyContent="center">
-            <Typography id="confirm-description">
-              {description}
-            </Typography>
+            <Typography id="confirm-description">{description}</Typography>
           </Flex>
         </Flex>
       </DialogBody>
@@ -36,7 +45,7 @@ const Dialog = ({title, description, isVisible, setIsVisible }: { title: string,
         endAction={
           <Button
             variant="danger-light"
-            onClick={() => alert()}
+            onClick={() => confirmAction()}
             startIcon={<Trash />}
           >
             Confirm

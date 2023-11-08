@@ -1,11 +1,9 @@
 import form from "./form";
-import submission from './submission';
-// import handler from "./handler";
-// import setting from "./setting";
+import submission from "./submission";
+import notification from "./notification";
 
 export default {
   submission,
-  // handler,
+  notification,
   form,
-  // setting,
 };

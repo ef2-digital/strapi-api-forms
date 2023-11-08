@@ -15,9 +15,17 @@ type HeadingProps = {
   save?: () => void;
   title?: string;
   subtitle?: string;
+  backUrl?: string;
+  backTitle?: string;
 };
 
-const Header = ({ save, title, subtitle }: HeadingProps): JSX.Element => {
+const Header = ({
+  save,
+  title,
+  subtitle,
+  backUrl,
+  backTitle,
+}: HeadingProps): JSX.Element => {
   const { formatMessage } = useIntl();
 
   return (
@@ -34,8 +42,13 @@ const Header = ({ save, title, subtitle }: HeadingProps): JSX.Element => {
             )
           }
           navigationAction={
-            <Link startIcon={<ArrowLeft />} as={NavLink} to={`/plugins/${pluginId}`}>
-              {formatMessage({ id: `${pluginId}.back_to_overview` })}
+            <Link
+              startIcon={<ArrowLeft />}
+              as={NavLink}
+              to={`${backUrl ?? `/plugins/${pluginId}/form/list`}`}
+            >
+              {backTitle ??
+                formatMessage({ id: `${pluginId}.back_to_overview` })}
             </Link>
           }
           title={title ?? formatMessage({ id: `${pluginId}.forms.title` })}

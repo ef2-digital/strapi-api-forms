@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notification",
+  "info": {
+    "singularName": "notification",
+    "pluralName": "notificatons",
+    "displayName": "Email notifications"
+  },
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": true
+    }
+  },
+  "options": {
+    "draftAndPublish": false,
+    "privateAttributes": ["createdAt", "updatedAt"]
+  },
+  "attributes": {
+    "from": {
+      "type": "string"
+    },
+    "to": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text",
+      "default": "<p>Submitted on {submission.createdAt}</p><p>Submitted values are:</p>{submission.fields}"
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "identifier": {
+      "type": "enumeration",
+      "enum": ["notification"],
+      "default": "notification"
+    },
+    "service": {
+      "type": "string",
+      "default": "emailService"
+    },
+    "form": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::api-forms.form",
+      "inversedBy": "notifications"
+    }
+  }
+}

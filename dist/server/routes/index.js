@@ -14,9 +14,81 @@ exports.default = {
                 },
             },
             {
+                method: "GET",
+                path: "/submissions",
+                handler: "submission.dashboard",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
                 method: "POST",
                 path: "/forms",
                 handler: "form.create",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
+                method: "GET",
+                path: "/form/:id",
+                handler: "form.get",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
+                method: "GET",
+                path: "/form/:id/submissions",
+                handler: "form.submissions",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
+                method: "PUT",
+                path: "/forms/:id",
+                handler: "form.update",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
+                method: "DELETE",
+                path: "/forms/:id",
+                handler: "form.delete",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
+                method: "GET",
+                path: "/submission/:id",
+                handler: "submission.get",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
+                method: "POST",
+                path: "/submission/post",
+                handler: "submission.post",
+                config: {
+                    auth: false,
+                    policies: [],
+                },
+            },
+            {
+                method: "PUT",
+                path: "/notifications/update/:id",
+                handler: "notification.updateNotification",
                 config: {
                     auth: false,
                     policies: [],
@@ -33,26 +105,8 @@ exports.default = {
             // },
             // {
             //   method: "GET",
-            //   path: "/form",
-            //   handler: "formController.edit",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "GET",
             //   path: "/form/submissions",
             //   handler: "formController.submissions",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "POST",
-            //   path: "/form/:id/submission",
-            //   handler: "submissionController.store",
             //   config: {
             //     auth: false,
             //     policies: [],

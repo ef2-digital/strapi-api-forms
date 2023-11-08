@@ -8,6 +8,8 @@ import FieldModal from "../Modal/FieldModal";
 import { useIntl } from "react-intl";
 
 import {
+  Flex,
+  Icon,
   Table,
   Thead,
   Tbody,
@@ -20,6 +22,7 @@ import {
 import { Plus } from "@strapi/icons";
 import pluginId from "../../pluginId";
 import FieldActions from "./Fields/FieldActions";
+import { Check, Cross } from "@strapi/icons";
 
 export interface FieldProps extends FieldType {
   position: number;
@@ -104,7 +107,7 @@ const FormFields = () => {
             <Th>
               <Typography variant="sigma">
                 {formatMessage({
-                  id: `${pluginId}.forms.fields.extra_props.width`,
+                  id: `${pluginId}.forms.fields.extra_props.ui`,
                 })}
               </Typography>
             </Th>
@@ -126,18 +129,53 @@ const FormFields = () => {
               </Td>
               <Td>
                 <Typography textColor="neutral800">
-                {formatMessage({ id: `${pluginId}.forms.fields.types.${field.type}` })}
+                  {formatMessage({
+                    id: `${pluginId}.forms.fields.types.${field.type}`,
+                  })}
                 </Typography>
               </Td>
               <Td>
-                <Typography textColor="neutral800">
-                  {field.config?.required}
+                <Typography textColor="neutral800" variant="pi">
+                  {field.config?.required ? (
+                    <Icon
+                      width={`${15 / 16}rem`}
+                      height={`${15 / 16}rem`}
+                      as={Check}
+                    />
+                  ) : (
+                    <Icon
+                      width={`${15 / 16}rem`}
+                      height={`${15 / 16}rem`}
+                      as={Cross}
+                    />
+                  )}
                 </Typography>
               </Td>
               <Td>
-                <Typography textColor="neutral800">
-                  {field.config?.width ?? '100%'}
-                </Typography>
+                <Flex>
+                  <Typography textColor="neutral800" variant="pi">
+                    {formatMessage({
+                      id: `${pluginId}.forms.fields.extra_props.width`,
+                    })}
+                    :
+                  </Typography>
+                  <Typography textColor="neutral800" variant="pi">
+                    {field.config?.ui?.width ?? "100%"}
+                  </Typography>
+                </Flex>
+                <Flex>
+                  <Typography textColor="neutral800" variant="pi">
+                    {formatMessage({
+                      id: `${pluginId}.forms.fields.extra_props.classNames`,
+                    })}
+                    :
+                  </Typography>
+                  {field.config?.ui?.classNames && (
+                    <Typography textColor="neutral800" variant="pi">
+                      {field.config?.ui?.classNames ?? "-"}
+                    </Typography>
+                  )}
+                </Flex>
               </Td>
               <Td>
                 <FieldActions

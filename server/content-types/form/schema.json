@@ -17,7 +17,7 @@
 
   "options": {
     "draftAndPublish": false
-    },
+  },
 
   "attributes": {
     "title": {
@@ -26,10 +26,17 @@
     "fields": {
       "type": "json"
     },
-    "submission": {
+
+    "submissions": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "plugin::api-forms.submission",
+      "mappedBy": "form"
+    },
+    "notifications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::api-forms.notification",
       "mappedBy": "form"
     }
   }
