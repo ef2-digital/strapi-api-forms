@@ -21,3 +21,4 @@ export default {
   policies,
   middlewares,
 };
+

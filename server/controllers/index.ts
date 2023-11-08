@@ -1,5 +1,9 @@
-import myController from './my-controller';
+import form from "./form-controller";
+import submission from "./submission";
+import notification from "./notification";
 
 export default {
-  myController,
+  form,
+  submission,
+  notification,
 };
