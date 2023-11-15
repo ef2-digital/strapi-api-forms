@@ -3,9 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.FieldActionsEnum = exports.FieldDirectionEnum = exports.FieldTypeEnum = exports.EmailDataMessageEnum = exports.HandlerTypeEnum = void 0;
 var HandlerTypeEnum;
 (function (HandlerTypeEnum) {
-    HandlerTypeEnum["Email"] = "email";
-    HandlerTypeEnum["Action"] = "action";
-    HandlerTypeEnum["Remote"] = "remote";
+    HandlerTypeEnum["Notification"] = "notification";
+    HandlerTypeEnum["Confirmation"] = "confirmation";
 })(HandlerTypeEnum = exports.HandlerTypeEnum || (exports.HandlerTypeEnum = {}));
 var EmailDataMessageEnum;
 (function (EmailDataMessageEnum) {

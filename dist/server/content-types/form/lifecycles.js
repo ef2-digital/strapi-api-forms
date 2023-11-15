@@ -8,10 +8,10 @@ exports.default = {
             throw new ForbiddenError("No form");
         }
         const defaultEmail = await strapi.plugins["email"].services.email.getProviderSettings().settings.defaultFrom;
-        return await strapi.entityService.create("plugin::api-forms.notification", {
+        const notification = await strapi.entityService.create("plugin::api-forms.notification", {
             data: {
                 form: result.id,
-                enabled: true,
+                enabled: false,
                 identifier: "notification",
                 service: "emailService",
                 from: defaultEmail,
@@ -19,5 +19,17 @@ exports.default = {
                 subject: "New submission from API form: " + result.title,
             },
         });
+        const confirmation = await strapi.entityService.create("plugin::api-forms.notification", {
+            data: {
+                form: result.id,
+                enabled: false,
+                identifier: "confirmation",
+                service: "emailService",
+                from: defaultEmail,
+                to: "",
+                subject: "",
+            },
+        });
+        return [confirmation, notification];
     },
 };

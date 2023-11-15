@@ -30,14 +30,14 @@
     },
     "message": {
       "type": "text",
-      "default": "<p>Submitted on {submission.createdAt}</p><p>Submitted values are:</p>{submission.fields}"
+      "default": ""
     },
     "enabled": {
       "type": "boolean"
     },
     "identifier": {
       "type": "enumeration",
-      "enum": ["notification"],
+      "enum": ["notification", "confirmation"],
       "default": "notification"
     },
     "service": {

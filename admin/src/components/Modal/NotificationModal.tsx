@@ -1,6 +1,6 @@
 //@ts-nocheck
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 /*
  * Strapi Design system
@@ -25,20 +25,29 @@ import pluginId from "../../pluginId";
 import formRequests from "../../api/form";
 import notificationRequests from "../../api/notification";
 import RichTextEditor from "../Notification/RichTextEditor";
+import { HandlerTypeEnum } from "../../utils/enums";
+import { FormContext } from "../../hooks/useForm";
+import { NotificationType } from "../../utils/types";
+import { Types } from "../../hooks/formReducer";
+import SelectEmail from "../Notification/SelectEmail";
 
 interface ModalProps {
-  formId: number;
+  type: HandlerTypeEnum;
   isModalVisible: boolean;
-  setModalIsVisible: (boolean) => void;
+  setModalIsVisible: Function;
 }
 
 const NotificationModal = ({
-  formId,
+  type,
   isModalVisible,
   setModalIsVisible,
 }: ModalProps) => {
   const { formatMessage } = useIntl();
-  const [notification, setNotification] = useState();
+  const { dispatch, state } = useContext(FormContext);
+
+  const [notification, setNotification] = useState<
+    NotificationType | undefined
+  >();
   const [hasAlert, setAlert] = useState<boolean>(false);
   const [fields, setFields] = useState<any>([]);
   const [alertMessage, setAlertMessage] = useState<string>(
@@ -47,15 +56,23 @@ const NotificationModal = ({
 
   useEffect(() => {
     const fetchNotification = async () => {
-      const result = await formRequests.getForm(formId);
+      const result = await formRequests.getForm(state.form?.id!);
       setFields(JSON.parse(result.attributes.fields));
-      setNotification(result.attributes.notifications.pop());
+
+      if (!result.attributes.notifications) {
+        return;
+      }
+
+      setNotification(
+        result.attributes.notifications.find((n) => n.identifier === type)
+      );
     };
 
     fetchNotification();
   }, []);
 
-  const setValue = (name, value) => {
+  const setValue = (name: string, value: string | boolean) => {
+    //@ts-ignore
     setNotification({ ...notification, [name]: value });
   };
 
@@ -64,7 +81,40 @@ const NotificationModal = ({
   };
 
   const save = async () => {
-    await notificationRequests.update(notification.id, notification);
+    const result = await notificationRequests.update(
+      notification?.id,
+      notification
+    );
+
+    const newForm = {
+      ...state.form,
+      attributes: {
+        ...state.form.attributes,
+        notifications: state.form.attributes?.notifications?.map((n) =>
+          result.data.id === n.id
+            ? { ...result.data?.attributes, id: result.data.id }
+            : n
+        ),
+      },
+    };
+
+    dispatch({
+      type: Types.Set_Form,
+      payload: {
+        ...state,
+        form: newForm,
+      },
+    });
+
+    dispatch({
+      type: Types.Set_Forms,
+      payload: {
+        ...state,
+        forms: state.forms.map((form) =>
+          form.id === newForm.id ? newForm : form
+        ),
+      },
+    });
 
     setModalIsVisible(false);
   };
@@ -112,21 +162,24 @@ const NotificationModal = ({
                 })}
                 name="from"
                 value={notification.from}
-                onChange={(e) => {
+                onChange={(e: any) => {
                   setValue("from", e.target.value);
                 }}
               />
-
-              <TextInput
-                label={formatMessage({
-                  id: `${pluginId}.forms.fields.to`,
-                })}
-                name="to"
-                value={notification.to}
-                onChange={(e) => {
-                  setValue("to", e.target.value);
-                }}
-              />
+              {notification.identifier === HandlerTypeEnum.Notification ? (
+                <TextInput
+                  label={formatMessage({
+                    id: `${pluginId}.forms.fields.recipient`,
+                  })}
+                  name="to"
+                  value={notification.to}
+                  onChange={(e: any) => {
+                    setValue("to", e.target.value);
+                  }}
+                />
+              ) : (
+                <SelectEmail notification={notification} setValue={setValue} />
+              )}
 
               <TextInput
                 label={formatMessage({
@@ -134,12 +187,16 @@ const NotificationModal = ({
                 })}
                 name="subject"
                 value={notification.subject}
-                onChange={(e) => {
+                onChange={(e: any) => {
                   setValue("subject", e.target.value);
                 }}
               />
               <Divider />
-              <RichTextEditor notification={notification} fields={fields} setValue={setValue}/>
+              <RichTextEditor
+                notification={notification}
+                fields={fields}
+                setValue={setValue}
+              />
             </Stack>
           )}
         </ModalBody>

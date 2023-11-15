@@ -6,19 +6,21 @@ import { FormActions, formReducer } from "./formReducer";
 export interface FormContextInterface {
   fields: FieldCollectionType;
   form: FormType;
+  forms: FormType[];
 }
 
 const initialState = {
-    fields: [],
-    form: {
-      id: null,
-      attributes: {
+  fields: [],
+  forms: [],
+  form: {
+    id: null,
+    attributes: {
       title: "",
       fields: "",
       createdAt: "",
       updatedAt: "",
-      }
     },
+  },
 };
 
 const FormContext = createContext<{

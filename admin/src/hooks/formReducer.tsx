@@ -14,6 +14,7 @@ export enum Types {
   Change_Position = "CHANGE_POSITION",
   Set_Form = "SET_FORM",
   Edit_Form = "EDIT_FORM",
+  Set_Forms = "SET_FORMS",
 }
 
 type FormPayload = {
@@ -48,6 +49,9 @@ type FormPayload = {
   [Types.Set_Form]: {
     form: FormType;
   };
+  [Types.Set_Forms]: {
+    forms: FormType[];
+  };
 };
 
 export type FormActions = ActionMap<FormPayload>[keyof ActionMap<FormPayload>];
@@ -58,11 +62,16 @@ export const formReducer = (
 ) => {
   const fields = state.fields.slice();
 
-  if (!state.form) {
+  if (!state.form || !state.forms) {
     return;
   }
 
   switch (action.type) {
+    case Types.Set_Forms:
+      state.forms = action.payload.forms;
+
+      return { ...state };
+
     case Types.Edit_Form:
       const { title } = action.payload;
 
@@ -81,7 +90,7 @@ export const formReducer = (
       const { label, fieldType, options, config } = action.payload;
 
       state.fields.push({
-        name: label.toLowerCase(),
+        name: label.replace(/['"]/g, ""),
         label: label,
         type: fieldType!,
         options: options,
@@ -95,7 +104,7 @@ export const formReducer = (
       fields.map((current, index) => {
         if (field.name === current.name) {
           fields[index] = {
-            name: field.label.toLowerCase(),
+            name: field.label.replace(/['"]/g, ""),
             label: field.label,
             type: field.fieldType!,
             options: field.options,

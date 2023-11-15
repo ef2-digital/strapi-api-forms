@@ -48,7 +48,7 @@ const RichTextEditor = ({
     const afterCursor = message.substring(cursorPosition);
 
     setMessage(
-      `${beforeCursor} **{{${field.name}}}**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:8px; padding-right: 16px;padding-left: 16px;border-radius: 4px;--> ${afterCursor}`
+      `${beforeCursor} **${field.label}**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;--> ${afterCursor}`
     );
   };
 
@@ -93,8 +93,11 @@ const RichTextEditor = ({
       </Typography>
 
       <Flex gap="1">
-        {fields.map((field) => (
-          <Button onClick={() => insertFieldIntoMessage(field)}>
+        {fields.map((field, index) => (
+          <Button
+            key={`field-${index}`}
+            onClick={() => insertFieldIntoMessage(field)}
+          >
             {field.label}
           </Button>
         ))}

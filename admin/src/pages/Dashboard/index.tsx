@@ -2,7 +2,6 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 import {
-  FormCollectionType,
   FormResponse,
   SubmissionCollectionType,
   SubmissionsResponse,
@@ -21,12 +20,14 @@ import { Plus } from "@strapi/icons";
 import { NavLink } from "react-router-dom";
 import { ArrowRight } from "@strapi/icons";
 import submissionRequests from "../../api/submission";
+import { FormContext } from "../../hooks/useForm";
+import { Types } from "../../hooks/formReducer";
 const qs = require("qs");
 
 const Dashboard = () => {
   const { formatMessage } = useIntl();
-  const [forms, setForms] = useState<FormCollectionType>([]);
   const [submissions, setSubmissions] = useState<SubmissionCollectionType>([]);
+  const { dispatch, state } = React.useContext(FormContext);
 
   useEffect(() => {
     formRequests
@@ -43,7 +44,12 @@ const Dashboard = () => {
         )
       )
       .then((response: FormResponse) => {
-        setForms(response.data);
+        dispatch({
+          type: Types.Set_Forms,
+          payload: {
+            forms: response.data,
+          },
+        });
       });
 
     submissionRequests
@@ -92,7 +98,7 @@ const Dashboard = () => {
                 </LinkButton>
               </Flex>
             </Box>
-            {forms.length > 0 ? <FormTable forms={forms} /> : <></>}
+            {state.forms.length > 0 ? <FormTable /> : <></>}
 
             <Box paddingTop={10}>
               <Box paddingBottom={5}>

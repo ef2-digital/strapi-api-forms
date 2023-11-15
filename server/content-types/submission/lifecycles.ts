@@ -54,10 +54,16 @@ export default {
         return;
       }
 
-      return await strapi
+      const response = await strapi
         .plugin("api-forms")
         .service("notification")
         .process(handler, result, form);
+
+      return {
+        ...response,
+        handler,
+        result: "success",
+      };
     });
   },
 };

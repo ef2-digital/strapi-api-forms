@@ -49,7 +49,7 @@ const Table = ({
             <VisuallyHidden>Actions</VisuallyHidden>,
           ].map((heading, index) => {
             return (
-              <Th key={index}>
+              <Th key={`submission-head-${index}`}>
                 <Typography variant="sigma">{heading}</Typography>
               </Th>
             );
@@ -90,12 +90,14 @@ const Table = ({
                 <Td>
                   <Box maxWidth="200" style={{ width: "300px" }}>
                     <Typography textColor="neutral800" ellipsis={true}>
-                      {Object.keys(parsedSubmission).map((field: any) => (
-                        <>
-                          {field}: {parsedSubmission[field]}
-                          {" - "}
-                        </>
-                      ))}
+                      {Object.keys(parsedSubmission).map(
+                        (field: any, index) => (
+                          <React.Fragment key={`field-${index}`}>
+                            {field}: {parsedSubmission[field]}
+                            {" - "}
+                          </React.Fragment>
+                        )
+                      )}
                     </Typography>
                   </Box>
                 </Td>

@@ -12,16 +12,36 @@ export default {
       "email"
     ].services.email.getProviderSettings().settings.defaultFrom;
 
-    return await strapi.entityService.create("plugin::api-forms.notification", {
-      data: {
-        form: result.id,
-        enabled: true,
-        identifier: "notification",
-        service: "emailService",
-        from: defaultEmail,
-        to: defaultEmail,
-        subject: "New submission from API form: " + result.title,
-      },
-    });
+    const notification = await strapi.entityService.create(
+      "plugin::api-forms.notification",
+      {
+        data: {
+          form: result.id,
+          enabled: false,
+          identifier: "notification",
+          service: "emailService",
+          from: defaultEmail,
+          to: defaultEmail,
+          subject: "New submission from API form: " + result.title,
+        },
+      }
+    );
+
+    const confirmation = await strapi.entityService.create(
+      "plugin::api-forms.notification",
+      {
+        data: {
+          form: result.id,
+          enabled: false,
+          identifier: "confirmation",
+          service: "emailService",
+          from: defaultEmail,
+          to: "",
+          subject: "",
+        },
+      }
+    );
+
+    return [confirmation, notification];
   },
 };
