@@ -61,6 +61,7 @@ const FieldOptions = ({
   switch (field) {
     case FieldTypeEnum.Select:
     case FieldTypeEnum.Radio:
+    case FieldTypeEnum.Checkbox:
       fieldOptions = (
         <Box>
           <Textarea

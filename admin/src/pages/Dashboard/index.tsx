@@ -71,6 +71,10 @@ const Dashboard = () => {
       });
   }, []);
 
+  if (!state) {
+    return <></>;
+  }
+
   return (
     <>
       <Header title={formatMessage({ id: `${pluginId}.heading.dashboard` })} />
@@ -98,7 +102,7 @@ const Dashboard = () => {
                 </LinkButton>
               </Flex>
             </Box>
-            {state.forms.length > 0 ? <FormTable /> : <></>}
+            {state.forms && state.forms.length > 0 ? <FormTable /> : <></>}
 
             <Box paddingTop={10}>
               <Box paddingBottom={5}>
@@ -117,7 +121,7 @@ const Dashboard = () => {
                   </Link>
                 </Box>
               </Box>
-              {submissions.length > 0 ? (
+              {submissions && submissions.length > 0 ? (
                 <SubmissionTable submissions={submissions} />
               ) : (
                 <></>
