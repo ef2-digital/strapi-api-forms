@@ -1,28 +1,28 @@
 <div align="center">
 <h1 align="center">
 <img src="https://raw.githubusercontent.com/PKief/vscode-material-icon-theme/ec559a9f6bfd399b82bb44393651661b08aaf7ba/icons/folder-markdown-open.svg" width="100" />
-<br>API-FORMS</h1>
-<h3>◦ HTTPStatus Exception: 429</h3>
+<br>README-AI</h1>
+<h3>◦ HTTPStatus Exception: 404</h3>
 <h3>◦ Developed with the software and tools below.</h3>
 
 <p align="center">
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=flat-square&logo=JavaScript&logoColor=black" alt="JavaScript" />
-<img src="https://img.shields.io/badge/Prettier-F7B93E.svg?style=flat-square&logo=Prettier&logoColor=black" alt="Prettier" />
-<img src="https://img.shields.io/badge/styledcomponents-DB7093.svg?style=flat-square&logo=styled-components&logoColor=white" alt="styledcomponents" />
-<img src="https://img.shields.io/badge/CodeMirror-D30707.svg?style=flat-square&logo=CodeMirror&logoColor=white" alt="CodeMirror" />
+<img src="https://img.shields.io/badge/GNU%20Bash-4EAA25.svg?style=flat-square&logo=GNU-Bash&logoColor=white" alt="GNU%20Bash" />
+<img src="https://img.shields.io/badge/tqdm-FFC107.svg?style=flat-square&logo=tqdm&logoColor=black" alt="tqdm" />
+<img src="https://img.shields.io/badge/precommit-FAB040.svg?style=flat-square&logo=pre-commit&logoColor=black" alt="precommit" />
 <img src="https://img.shields.io/badge/YAML-CB171E.svg?style=flat-square&logo=YAML&logoColor=white" alt="YAML" />
-<img src="https://img.shields.io/badge/React-61DAFB.svg?style=flat-square&logo=React&logoColor=black" alt="React" />
+<img src="https://img.shields.io/badge/Poetry-60A5FA.svg?style=flat-square&logo=Poetry&logoColor=white" alt="Poetry" />
+<img src="https://img.shields.io/badge/OpenAI-412991.svg?style=flat-square&logo=OpenAI&logoColor=white" alt="OpenAI" />
 
-<img src="https://img.shields.io/badge/Axios-5A29E4.svg?style=flat-square&logo=Axios&logoColor=white" alt="Axios" />
-<img src="https://img.shields.io/badge/Lodash-3492FF.svg?style=flat-square&logo=Lodash&logoColor=white" alt="Lodash" />
-<img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=flat-square&logo=TypeScript&logoColor=white" alt="TypeScript" />
-<img src="https://img.shields.io/badge/Immer-00E7C3.svg?style=flat-square&logo=Immer&logoColor=white" alt="Immer" />
-<img src="https://img.shields.io/badge/JSON-000000.svg?style=flat-square&logo=JSON&logoColor=white" alt="JSON" />
+<img src="https://img.shields.io/badge/Python-3776AB.svg?style=flat-square&logo=Python&logoColor=white" alt="Python" />
+<img src="https://img.shields.io/badge/AIOHTTP-2C5BB4.svg?style=flat-square&logo=AIOHTTP&logoColor=white" alt="AIOHTTP" />
+<img src="https://img.shields.io/badge/Docker-2496ED.svg?style=flat-square&logo=Docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/GitHub%20Actions-2088FF.svg?style=flat-square&logo=GitHub-Actions&logoColor=white" alt="GitHub%20Actions" />
+<img src="https://img.shields.io/badge/Pytest-0A9EDC.svg?style=flat-square&logo=Pytest&logoColor=white" alt="Pytest" />
 </p>
-<img src="https://img.shields.io/github/license/ddegooijer/api-forms?style=flat-square&color=5D6D7E" alt="GitHub license" />
-<img src="https://img.shields.io/github/last-commit/ddegooijer/api-forms?style=flat-square&color=5D6D7E" alt="git-last-commit" />
-<img src="https://img.shields.io/github/commit-activity/m/ddegooijer/api-forms?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
-<img src="https://img.shields.io/github/languages/top/ddegooijer/api-forms?style=flat-square&color=5D6D7E" alt="GitHub top language" />
+<img src="https://img.shields.io/github/license/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="GitHub license" />
+<img src="https://img.shields.io/github/last-commit/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="git-last-commit" />
+<img src="https://img.shields.io/github/commit-activity/m/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="GitHub commit activity" />
+<img src="https://img.shields.io/github/languages/top/eli64s/readme-ai?style=flat-square&color=5D6D7E" alt="GitHub top language" />
 </div>
 
 ---
@@ -35,7 +35,7 @@
 - [⚙️ Modules](#modules)
 - [🚀 Getting Started](#-getting-started)
     - [🔧 Installation](#-installation)
-    - [🤖 Running api-forms](#-running-api-forms)
+    - [🤖 Running readme-ai](#-running-readme-ai)
     - [🧪 Tests](#-tests)
 - [🛣 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
@@ -47,13 +47,13 @@
 
 ## 📍 Overview
 
-HTTPStatus Exception: 429
+HTTPStatus Exception: 404
 
 ---
 
 ## 📦 Features
 
-HTTPStatus Exception: 429
+HTTPStatus Exception: 404
 
 ---
 
@@ -61,54 +61,64 @@ HTTPStatus Exception: 429
 ## 📂 Repository Structure
 
 ```sh
-└── api-forms/
-    ├── admin/
-    │   └── src/
-    │       ├── api/
-    │       ├── components/
-    │       ├── hooks/
-    │       ├── index.tsx
-    │       ├── pages/
-    │       ├── pluginId.ts
-    │       ├── translations/
-    │       └── utils/
-    ├── custom.d.ts
-    ├── package.json
-    ├── server/
-    │   ├── bootstrap.ts
+└── readme-ai/
+    ├── .github/
+    │   ├── release-drafter.yml
+    │   └── workflows/
+    │       ├── build_docker.yml
+    │       ├── publish_package.yml
+    │       └── release-drafter.yml
+    ├── Dockerfile
+    ├── Makefile
+    ├── examples/
+    │   ├── images/
+    │   └── markdown/
+    ├── poetry.lock
+    ├── pyproject.toml
+    ├── readmeai/
+    │   ├── cli/
+    │   │   ├── commands.py
+    │   │   └── options.py
     │   ├── config/
-    │   │   └── index.ts
-    │   ├── content-types/
-    │   │   ├── form/
-    │   │   ├── index.ts
-    │   │   ├── notification/
-    │   │   └── submission/
-    │   ├── controllers/
-    │   │   ├── form-controller.ts
-    │   │   ├── index.ts
-    │   │   ├── notification.ts
-    │   │   └── submission.ts
-    │   ├── destroy.ts
-    │   ├── index.ts
-    │   ├── middlewares/
-    │   │   └── index.ts
-    │   ├── policies/
-    │   │   └── index.ts
-    │   ├── register.ts
-    │   ├── routes/
-    │   │   ├── index.ts
-    │   │   └── submission.ts
-    │   └── services/
-    │       ├── email-service.ts
-    │       ├── form-service.ts
-    │       ├── index.ts
-    │       ├── notification-service.ts
-    │       └── submission.ts
-    ├── strapi-admin.js
-    ├── strapi-server.js
-    ├── tsconfig.json
-    ├── tsconfig.server.json
-    └── yarn.lock
+    │   │   ├── __Init__.py
+    │   │   └── settings.py
+    │   ├── core/
+    │   │   ├── factory.py
+    │   │   ├── logger.py
+    │   │   ├── model.py
+    │   │   ├── parser.py
+    │   │   ├── preprocess.py
+    │   │   └── tokens.py
+    │   ├── main.py
+    │   ├── markdown/
+    │   │   ├── badges.py
+    │   │   ├── headers.py
+    │   │   ├── quickstart.py
+    │   │   ├── tables.py
+    │   │   ├── template.py
+    │   │   └── tree.py
+    │   ├── services/
+    │   │   └── version_control.py
+    │   ├── settings/
+    │   │   ├── config.toml
+    │   │   ├── dependency_files.toml
+    │   │   ├── identifiers.toml
+    │   │   ├── ignore_files.toml
+    │   │   ├── language_names.toml
+    │   │   └── language_setup.toml
+    │   └── utils/
+    │       └── utils.py
+    ├── requirements.txt
+    ├── scripts/
+    │   ├── build_docker.sh
+    │   ├── build_pypi.sh
+    │   ├── clean.sh
+    │   ├── run.sh
+    │   ├── run_batch.sh
+    │   └── test.sh
+    ├── setup/
+    │   ├── environment.yaml
+    │   └── setup.sh
 
 ```
 
@@ -119,276 +129,134 @@ HTTPStatus Exception: 429
 
 <details closed><summary>Root</summary>
 
-| File                                                                                           | Summary                   |
-| ---                                                                                            | ---                       |
-| [yarn.lock](https://github.com/ddegooijer/api-forms/blob/main/yarn.lock)                       | HTTPStatus Exception: 429 |
-| [strapi-admin.js](https://github.com/ddegooijer/api-forms/blob/main/strapi-admin.js)           | HTTPStatus Exception: 429 |
-| [strapi-server.js](https://github.com/ddegooijer/api-forms/blob/main/strapi-server.js)         | HTTPStatus Exception: 429 |
-| [package.json](https://github.com/ddegooijer/api-forms/blob/main/package.json)                 | HTTPStatus Exception: 429 |
-| [custom.d.ts](https://github.com/ddegooijer/api-forms/blob/main/custom.d.ts)                   | HTTPStatus Exception: 429 |
-| [tsconfig.server.json](https://github.com/ddegooijer/api-forms/blob/main/tsconfig.server.json) | HTTPStatus Exception: 429 |
-| [tsconfig.json](https://github.com/ddegooijer/api-forms/blob/main/tsconfig.json)               | HTTPStatus Exception: 429 |
+| File                                                                               | Summary                   |
+| ---                                                                                | ---                       |
+| [requirements.txt](https://github.com/eli64s/readme-ai/blob/main/requirements.txt) | HTTPStatus Exception: 404 |
+| [Dockerfile](https://github.com/eli64s/readme-ai/blob/main/Dockerfile)             | HTTPStatus Exception: 404 |
+| [Makefile](https://github.com/eli64s/readme-ai/blob/main/Makefile)                 | HTTPStatus Exception: 404 |
+| [pyproject.toml](https://github.com/eli64s/readme-ai/blob/main/pyproject.toml)     | HTTPStatus Exception: 404 |
+| [poetry.lock](https://github.com/eli64s/readme-ai/blob/main/poetry.lock)           | HTTPStatus Exception: 404 |
 
 </details>
 
-<details closed><summary>Src</summary>
+<details closed><summary>Setup</summary>
 
-| File                                                                                   | Summary                   |
-| ---                                                                                    | ---                       |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/index.tsx)     | HTTPStatus Exception: 429 |
-| [pluginId.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/pluginId.ts) | HTTPStatus Exception: 429 |
+| File                                                                                     | Summary                   |
+| ---                                                                                      | ---                       |
+| [setup.sh](https://github.com/eli64s/readme-ai/blob/main/setup/setup.sh)                 | HTTPStatus Exception: 404 |
+| [environment.yaml](https://github.com/eli64s/readme-ai/blob/main/setup/environment.yaml) | HTTPStatus Exception: 404 |
 
 </details>
 
-<details closed><summary>Utils</summary>
+<details closed><summary>Scripts</summary>
+
+| File                                                                                     | Summary                   |
+| ---                                                                                      | ---                       |
+| [run_batch.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run_batch.sh)       | HTTPStatus Exception: 404 |
+| [build_pypi.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/build_pypi.sh)     | HTTPStatus Exception: 404 |
+| [build_docker.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/build_docker.sh) | HTTPStatus Exception: 404 |
+| [run.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/run.sh)                   | HTTPStatus Exception: 404 |
+| [clean.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/clean.sh)               | HTTPStatus Exception: 404 |
+| [test.sh](https://github.com/eli64s/readme-ai/blob/main/scripts/test.sh)                 | HTTPStatus Exception: 404 |
+
+</details>
+
+<details closed><summary>.github</summary>
+
+| File                                                                                             | Summary                   |
+| ---                                                                                              | ---                       |
+| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/release-drafter.yml) | HTTPStatus Exception: 404 |
+
+</details>
+
+<details closed><summary>Workflows</summary>
+
+| File                                                                                                       | Summary                   |
+| ---                                                                                                        | ---                       |
+| [release-drafter.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/release-drafter.yml) | HTTPStatus Exception: 404 |
+| [publish_package.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/publish_package.yml) | HTTPStatus Exception: 404 |
+| [build_docker.yml](https://github.com/eli64s/readme-ai/blob/main/.github/workflows/build_docker.yml)       | HTTPStatus Exception: 404 |
+
+</details>
+
+<details closed><summary>Readmeai</summary>
+
+| File                                                                      | Summary                   |
+| ---                                                                       | ---                       |
+| [main.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/main.py) | HTTPStatus Exception: 404 |
+
+</details>
+
+<details closed><summary>Settings</summary>
+
+| File                                                                                                           | Summary                   |
+| ---                                                                                                            | ---                       |
+| [ignore_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/ignore_files.toml)         | HTTPStatus Exception: 404 |
+| [language_names.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_names.toml)     | HTTPStatus Exception: 404 |
+| [identifiers.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/identifiers.toml)           | HTTPStatus Exception: 404 |
+| [config.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/config.toml)                     | HTTPStatus Exception: 404 |
+| [dependency_files.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/dependency_files.toml) | HTTPStatus Exception: 404 |
+| [language_setup.toml](https://github.com/eli64s/readme-ai/blob/main/readmeai/settings/language_setup.toml)     | HTTPStatus Exception: 404 |
+
+</details>
+
+<details closed><summary>Core</summary>
 
 | File                                                                                       | Summary                   |
 | ---                                                                                        | ---                       |
-| [getTrad.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/utils/getTrad.ts) | HTTPStatus Exception: 429 |
-| [types.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/utils/types.ts)     | HTTPStatus Exception: 429 |
-| [enums.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/utils/enums.ts)     | HTTPStatus Exception: 429 |
-| [fetch.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/utils/fetch.ts)     | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Components</summary>
-
-| File                                                                                            | Summary                   |
-| ---                                                                                             | ---                       |
-| [Dialog.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Dialog.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Initializer</summary>
-
-| File                                                                                                      | Summary                   |
-| ---                                                                                                       | ---                       |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Initializer/index.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Form</summary>
-
-| File                                                                                                             | Summary                   |
-| ---                                                                                                              | ---                       |
-| [FieldMap.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/FieldMap.tsx)         | HTTPStatus Exception: 429 |
-| [_.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/_.tsx)                       | HTTPStatus Exception: 429 |
-| [FormListItem.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/FormListItem.tsx) | HTTPStatus Exception: 429 |
-| [FormFields.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/FormFields.tsx)     | HTTPStatus Exception: 429 |
-| [Header.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Header.tsx)             | HTTPStatus Exception: 429 |
-| [Table.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Table.tsx)               | HTTPStatus Exception: 429 |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/pages/Form/index.tsx)                    | HTTPStatus Exception: 429 |
-| [lifecycles.ts](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/form/lifecycles.ts)       | HTTPStatus Exception: 429 |
-| [schema.json](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/form/schema.json)           | HTTPStatus Exception: 429 |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/form/index.ts)                 | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Fields</summary>
-
-| File                                                                                                                          | Summary                   |
-| ---                                                                                                                           | ---                       |
-| [FieldActions.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Fields/FieldActions.tsx)       | HTTPStatus Exception: 429 |
-| [RadioWrapper.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Fields/RadioWrapper.tsx)       | HTTPStatus Exception: 429 |
-| [CheckboxWrapper.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Fields/CheckboxWrapper.tsx) | HTTPStatus Exception: 429 |
-| [FieldOptions.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Fields/FieldOptions.tsx)       | HTTPStatus Exception: 429 |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Fields/index.ts)                       | HTTPStatus Exception: 429 |
-| [SelectWrapper.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Form/Fields/SelectWrapper.tsx)     | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Notification</summary>
-
-| File                                                                                                                         | Summary                   |
-| ---                                                                                                                          | ---                       |
-| [RichTextEditor.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Notification/RichTextEditor.tsx) | HTTPStatus Exception: 429 |
-| [schema.json](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/notification/schema.json)               | HTTPStatus Exception: 429 |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/notification/index.ts)                     | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Layout</summary>
-
-| File                                                                                                               | Summary                   |
-| ---                                                                                                                | ---                       |
-| [AlertWrapper.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Layout/AlertWrapper.tsx) | HTTPStatus Exception: 429 |
-| [Header.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Layout/Header.tsx)             | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Modal</summary>
-
-| File                                                                                                                        | Summary                   |
-| ---                                                                                                                         | ---                       |
-| [HandlerModal.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Modal/HandlerModal.tsx)           | HTTPStatus Exception: 429 |
-| [NotificationModal.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Modal/NotificationModal.tsx) | HTTPStatus Exception: 429 |
-| [FieldModal.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Modal/FieldModal.tsx)               | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Pluginicon</summary>
-
-| File                                                                                                     | Summary                   |
-| ---                                                                                                      | ---                       |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/PluginIcon/index.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Overview</summary>
-
-| File                                                                                                             | Summary                   |
-| ---                                                                                                              | ---                       |
-| [Pagination.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Overview/Pagination.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Submission</summary>
-
-| File                                                                                                             | Summary                   |
-| ---                                                                                                              | ---                       |
-| [Header.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Submission/Header.tsx)       | HTTPStatus Exception: 429 |
-| [Table.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/components/Submission/Table.tsx)         | HTTPStatus Exception: 429 |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/pages/Submission/index.tsx)              | HTTPStatus Exception: 429 |
-| [lifecycles.ts](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/submission/lifecycles.ts) | HTTPStatus Exception: 429 |
-| [schema.json](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/submission/schema.json)     | HTTPStatus Exception: 429 |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/submission/index.ts)           | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Hooks</summary>
-
-| File                                                                                                 | Summary                   |
-| ---                                                                                                  | ---                       |
-| [useHandler.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/hooks/useHandler.tsx)   | HTTPStatus Exception: 429 |
-| [useForm.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/hooks/useForm.tsx)         | HTTPStatus Exception: 429 |
-| [formReducer.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/hooks/formReducer.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Api</summary>
-
-| File                                                                                               | Summary                   |
-| ---                                                                                                | ---                       |
-| [form.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/api/form.ts)                 | HTTPStatus Exception: 429 |
-| [submission.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/api/submission.ts)     | HTTPStatus Exception: 429 |
-| [notification.ts](https://github.com/ddegooijer/api-forms/blob/main/admin/src/api/notification.ts) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Formlist</summary>
-
-| File                                                                                              | Summary                   |
-| ---                                                                                               | ---                       |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/pages/FormList/index.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>App</summary>
-
-| File                                                                                         | Summary                   |
-| ---                                                                                          | ---                       |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/pages/App/index.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Submissionlist</summary>
-
-| File                                                                                                    | Summary                   |
-| ---                                                                                                     | ---                       |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/pages/SubmissionList/index.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Dashboard</summary>
-
-| File                                                                                               | Summary                   |
-| ---                                                                                                | ---                       |
-| [index.tsx](https://github.com/ddegooijer/api-forms/blob/main/admin/src/pages/Dashboard/index.tsx) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Translations</summary>
-
-| File                                                                                        | Summary                   |
-| ---                                                                                         | ---                       |
-| [nl.json](https://github.com/ddegooijer/api-forms/blob/main/admin/src/translations/nl.json) | HTTPStatus Exception: 429 |
-| [en.json](https://github.com/ddegooijer/api-forms/blob/main/admin/src/translations/en.json) | HTTPStatus Exception: 429 |
-| [fr.json](https://github.com/ddegooijer/api-forms/blob/main/admin/src/translations/fr.json) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Server</summary>
-
-| File                                                                                  | Summary                   |
-| ---                                                                                   | ---                       |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/index.ts)         | HTTPStatus Exception: 429 |
-| [destroy.ts](https://github.com/ddegooijer/api-forms/blob/main/server/destroy.ts)     | HTTPStatus Exception: 429 |
-| [register.ts](https://github.com/ddegooijer/api-forms/blob/main/server/register.ts)   | HTTPStatus Exception: 429 |
-| [bootstrap.ts](https://github.com/ddegooijer/api-forms/blob/main/server/bootstrap.ts) | HTTPStatus Exception: 429 |
+| [preprocess.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/preprocess.py) | HTTPStatus Exception: 404 |
+| [tokens.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/tokens.py)         | HTTPStatus Exception: 404 |
+| [logger.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/logger.py)         | HTTPStatus Exception: 404 |
+| [factory.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/factory.py)       | HTTPStatus Exception: 404 |
+| [model.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/model.py)           | HTTPStatus Exception: 404 |
+| [parser.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/core/parser.py)         | HTTPStatus Exception: 404 |
 
 </details>
 
 <details closed><summary>Config</summary>
 
-| File                                                                                 | Summary                   |
-| ---                                                                                  | ---                       |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/config/index.ts) | HTTPStatus Exception: 429 |
+| File                                                                                     | Summary                   |
+| ---                                                                                      | ---                       |
+| [__Init__.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/__Init__.py) | HTTPStatus Exception: 404 |
+| [settings.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/config/settings.py) | HTTPStatus Exception: 404 |
 
 </details>
 
-<details closed><summary>Middlewares</summary>
-
-| File                                                                                      | Summary                   |
-| ---                                                                                       | ---                       |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/middlewares/index.ts) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Policies</summary>
-
-| File                                                                                   | Summary                   |
-| ---                                                                                    | ---                       |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/policies/index.ts) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Content-types</summary>
-
-| File                                                                                        | Summary                   |
-| ---                                                                                         | ---                       |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/content-types/index.ts) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Controllers</summary>
-
-| File                                                                                                          | Summary                   |
-| ---                                                                                                           | ---                       |
-| [submission.ts](https://github.com/ddegooijer/api-forms/blob/main/server/controllers/submission.ts)           | HTTPStatus Exception: 429 |
-| [notification.ts](https://github.com/ddegooijer/api-forms/blob/main/server/controllers/notification.ts)       | HTTPStatus Exception: 429 |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/controllers/index.ts)                     | HTTPStatus Exception: 429 |
-| [form-controller.ts](https://github.com/ddegooijer/api-forms/blob/main/server/controllers/form-controller.ts) | HTTPStatus Exception: 429 |
-
-</details>
-
-<details closed><summary>Routes</summary>
+<details closed><summary>Markdown</summary>
 
 | File                                                                                           | Summary                   |
 | ---                                                                                            | ---                       |
-| [submission.ts](https://github.com/ddegooijer/api-forms/blob/main/server/routes/submission.ts) | HTTPStatus Exception: 429 |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/routes/index.ts)           | HTTPStatus Exception: 429 |
+| [tree.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tree.py)             | HTTPStatus Exception: 404 |
+| [badges.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/badges.py)         | HTTPStatus Exception: 404 |
+| [template.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/template.py)     | HTTPStatus Exception: 404 |
+| [tables.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/tables.py)         | HTTPStatus Exception: 404 |
+| [headers.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/headers.py)       | HTTPStatus Exception: 404 |
+| [quickstart.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/markdown/quickstart.py) | HTTPStatus Exception: 404 |
+
+</details>
+
+<details closed><summary>Utils</summary>
+
+| File                                                                              | Summary                   |
+| ---                                                                               | ---                       |
+| [utils.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/utils/utils.py) | HTTPStatus Exception: 404 |
+
+</details>
+
+<details closed><summary>Cli</summary>
+
+| File                                                                                  | Summary                   |
+| ---                                                                                   | ---                       |
+| [options.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/options.py)   | HTTPStatus Exception: 404 |
+| [commands.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/cli/commands.py) | HTTPStatus Exception: 404 |
 
 </details>
 
 <details closed><summary>Services</summary>
 
-| File                                                                                                                 | Summary                   |
-| ---                                                                                                                  | ---                       |
-| [form-service.ts](https://github.com/ddegooijer/api-forms/blob/main/server/services/form-service.ts)                 | HTTPStatus Exception: 429 |
-| [email-service.ts](https://github.com/ddegooijer/api-forms/blob/main/server/services/email-service.ts)               | HTTPStatus Exception: 429 |
-| [submission.ts](https://github.com/ddegooijer/api-forms/blob/main/server/services/submission.ts)                     | HTTPStatus Exception: 429 |
-| [notification-service.ts](https://github.com/ddegooijer/api-forms/blob/main/server/services/notification-service.ts) | HTTPStatus Exception: 429 |
-| [index.ts](https://github.com/ddegooijer/api-forms/blob/main/server/services/index.ts)                               | HTTPStatus Exception: 429 |
+| File                                                                                                     | Summary                   |
+| ---                                                                                                      | ---                       |
+| [version_control.py](https://github.com/eli64s/readme-ai/blob/main/readmeai/services/version_control.py) | HTTPStatus Exception: 404 |
 
 </details>
 
@@ -408,30 +276,30 @@ Please ensure you have the following dependencies installed on your system:
 
 ### 🔧 Installation
 
-1. Clone the api-forms repository:
+1. Clone the readme-ai repository:
 ```sh
-git clone https://github.com/ddegooijer/api-forms
+git clone https://github.com/eli64s/readme-ai
 ```
 
 2. Change to the project directory:
 ```sh
-cd api-forms
+cd readme-ai
 ```
 
 3. Install the dependencies:
 ```sh
-npm install
+pip install -r requirements.txt
 ```
 
-### 🤖 Running api-forms
+### 🤖 Running readme-ai
 
 ```sh
-npm run build && node dist/main.js
+python main.py
 ```
 
 ### 🧪 Tests
 ```sh
-npm test
+pytest
 ```
 
 ---
@@ -450,9 +318,9 @@ npm test
 
 Contributions are welcome! Here are several ways you can contribute:
 
-- **[Submit Pull Requests](https://github.com/ddegooijer/api-forms/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
-- **[Join the Discussions](https://github.com/ddegooijer/api-forms/discussions)**: Share your insights, provide feedback, or ask questions.
-- **[Report Issues](https://github.com/ddegooijer/api-forms/issues)**: Submit bugs found or log feature requests for DDEGOOIJER.
+- **[Submit Pull Requests](https://github.com/eli64s/readme-ai/blob/main/CONTRIBUTING.md)**: Review open PRs, and submit your own PRs.
+- **[Join the Discussions](https://github.com/eli64s/readme-ai/discussions)**: Share your insights, provide feedback, or ask questions.
+- **[Report Issues](https://github.com/eli64s/readme-ai/issues)**: Submit bugs found or log feature requests for ELI64S.
 
 #### *Contributing Guidelines*
 

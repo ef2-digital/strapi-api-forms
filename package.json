@@ -1,6 +1,6 @@
 {
   "name": "strapi-api-forms",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This is the description of the plugin.",
   "strapi": {
     "name": "api-forms",
@@ -11,6 +11,7 @@
     "@strapi/design-system": "^1.8.2",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
+    "@uiw/react-md-editor": "^4.0.1",
     "prop-types": "^15.7.2",
     "slugify": "^1.6.6"
   },
