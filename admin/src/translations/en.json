@@ -56,6 +56,7 @@
   "forms.fields.preview": "Preview:",
   "forms.fields.field_type": "Type",
   "forms.fields.field_label": "Label",
+  "forms.fields.placeholder": "Placeholder",
   "forms.fields.extra_props.ui": "UI options",
   "forms.fields.extra_props.hideLabel": "Hide field label",
   "forms.fields.extra_props.classNames": "Classnames",

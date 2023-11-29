@@ -24,6 +24,7 @@ type FormPayload = {
 
   [Types.Add_Field]: {
     label: string;
+    placeholder: string;
     fieldType: FieldTypeEnum;
     options: FieldOptionProps[] | [];
     config: FieldConfigProps;
@@ -36,6 +37,7 @@ type FormPayload = {
   [Types.Edit_Field]: {
     name: string;
     label: string;
+    placeholder: string;
     fieldType: FieldTypeEnum;
     options: FieldOptionProps[] | [];
     config: FieldConfigProps;
@@ -87,11 +89,12 @@ export const formReducer = (
 
       return { ...state };
     case Types.Add_Field:
-      const { label, fieldType, options, config } = action.payload;
+      const { label, placeholder, fieldType, options, config } = action.payload;
 
       state.fields.push({
         name: label.replace(/['"]/g, ""),
         label: label,
+        placeholder: placeholder,
         type: fieldType!,
         options: options,
         config: config!,
@@ -106,6 +109,7 @@ export const formReducer = (
           fields[index] = {
             name: field.label.replace(/['"]/g, ""),
             label: field.label,
+            placeholder: field.placeholder,
             type: field.fieldType!,
             options: field.options,
             config: field.config!,

@@ -33,7 +33,6 @@ const FieldOptions = ({
   let fieldOptions = <></>;
 
   const [content, setContent] = useState<string>(options);
-
   const [checked, setChecked] = useState<boolean | {}>(config.required);
   const [checkedUi, setCheckedUi] = useState<boolean | {}>(
     config.ui.hideLabel!
@@ -95,11 +94,6 @@ const FieldOptions = ({
         })}
       </Typography>
 
-      <Typography variant="omega" fontWeight="bold">
-        {formatMessage({
-          id: `${pluginId}.forms.fields.extra_props.validation`,
-        })}
-      </Typography>
       <Checkbox
         name="isRequired"
         checked={checkedUi}
