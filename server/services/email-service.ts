@@ -34,8 +34,12 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       strikethrough: true,
     });
 
+    const emailAddress = validateEmail(notification.to)
+      ? notification.to
+      : getValueFromSubmissionByKey(notification.to, parsedData.fields);
+
     strapi.log.info({
-      to: notification.to,
+      to: emailAddress,
       from: notification.from,
       subject: notification.subject,
       html: converter.makeHtml(message),
@@ -43,9 +47,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 
     try {
       await strapi.plugins["email"].services.email.send({
-        to: validateEmail(notification.to)
-          ? notification.to
-          : getValueFromSubmissionByKey(notification.to, parsedData.fields),
+        to: emailAddress,
         from: notification.from,
         subject: notification.subject,
         html: converter.makeHtml(message),
@@ -58,6 +60,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 
 function validateEmail(email) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
   return pattern.test(email);
 }
 
