@@ -18,7 +18,7 @@ exports.default = ({ strapi }) => ({
             tables: true,
             strikethrough: true,
         });
-        console.info({
+        strapi.log.info({
             to: notification.to,
             from: notification.from,
             subject: notification.subject,
@@ -34,8 +34,8 @@ exports.default = ({ strapi }) => ({
                 html: converter.makeHtml(message),
             });
         }
-        catch (err) {
-            console.error(err);
+        catch (error) {
+            strapi.log.fatal(error);
         }
     },
 });

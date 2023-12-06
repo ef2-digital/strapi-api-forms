@@ -34,7 +34,7 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       strikethrough: true,
     });
 
-    console.info({
+    strapi.log.info({
       to: notification.to,
       from: notification.from,
       subject: notification.subject,
@@ -50,8 +50,8 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         subject: notification.subject,
         html: converter.makeHtml(message),
       });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      strapi.log.fatal(error);
     }
   },
 });
