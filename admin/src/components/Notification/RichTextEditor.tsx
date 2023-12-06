@@ -7,7 +7,7 @@ import MDEditor from "@uiw/react-md-editor";
 /*
  * Strapi Design system
  */
-import { Button, Flex, Typography, Stack } from "@strapi/design-system";
+import { Button, Box, Typography, Stack } from "@strapi/design-system";
 
 import { useIntl } from "react-intl";
 import pluginId from "../../pluginId";
@@ -92,16 +92,25 @@ const RichTextEditor = ({
         })}
       </Typography>
 
-      <Flex gap="1">
-        {fields.map((field, index) => (
-          <Button
-            key={`field-${index}`}
-            onClick={() => insertFieldIntoMessage(field)}
-          >
-            {field.label}
-          </Button>
-        ))}
-      </Flex>
+      <Box>
+        {fields.map((field, index) => {
+          return (
+            <Button
+              style={{
+                display: "inline",
+                width: "auto",
+                margin: ".25rem",
+                padding: "0rem 1rem",
+              }}
+              key={`field-${index}`}
+              onClick={() => insertFieldIntoMessage(field)}
+            >
+              {field.label}
+            </Button>
+          );
+        })}
+      </Box>
+
       <>
         <MDEditor
           preview="live"

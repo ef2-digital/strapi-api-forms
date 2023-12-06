@@ -17,17 +17,9 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     if (!notification || !submission) {
       return;
     }
-    const parsedData = Object.assign({
-      submission: {
-        createdAt: format(parseISO(submission.createdAt), "dd-MM-yyyy HH:mm"),
-        fields: JSON.parse(submission.submission),
-      },
-    });
 
-    const message = replaceDynamicVariables(
-      notification.message,
-      JSON.parse(submission.submission)
-    );
+    const fields = JSON.parse(submission.submission);
+    const message = replaceDynamicVariables(notification.message, fields);
 
     const converter = new showdown.Converter({
       tables: true,
@@ -36,14 +28,16 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 
     const emailAddress = validateEmail(notification.to)
       ? notification.to
-      : getValueFromSubmissionByKey(notification.to, parsedData.fields);
+      : getValueFromSubmissionByKey(notification.to, fields);
 
-    strapi.log.info({
-      to: emailAddress,
-      from: notification.from,
-      subject: notification.subject,
-      html: converter.makeHtml(message),
-    });
+    strapi.log.info(
+      JSON.stringify({
+        to: emailAddress,
+        from: notification.from,
+        subject: notification.subject,
+        html: converter.makeHtml(message),
+      })
+    );
 
     try {
       await strapi.plugins["email"].services.email.send({
@@ -53,18 +47,19 @@ export default ({ strapi }: { strapi: Strapi }) => ({
         html: converter.makeHtml(message),
       });
     } catch (error) {
-      strapi.log.fatal(error);
+      strapi.log.error(error);
     }
   },
 });
 
 function validateEmail(email) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+
   return pattern.test(email);
 }
 
 function getValueFromSubmissionByKey(key, submission) {
+  console.log(key, submission);
   return submission[key];
 }
 

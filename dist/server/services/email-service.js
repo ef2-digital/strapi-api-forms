@@ -1,41 +1,36 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const showdown = require("showdown");
-const date_fns_1 = require("date-fns");
 exports.default = ({ strapi }) => ({
     async process(notification, submission, form) {
         if (!notification || !submission) {
             return;
         }
-        const parsedData = Object.assign({
-            submission: {
-                createdAt: (0, date_fns_1.format)((0, date_fns_1.parseISO)(submission.createdAt), "dd-MM-yyyy HH:mm"),
-                fields: JSON.parse(submission.submission),
-            },
-        });
-        const message = replaceDynamicVariables(notification.message, JSON.parse(submission.submission));
+        const fields = JSON.parse(submission.submission);
+        const message = replaceDynamicVariables(notification.message, fields);
         const converter = new showdown.Converter({
             tables: true,
             strikethrough: true,
         });
-        strapi.log.info({
-            to: notification.to,
+        const emailAddress = validateEmail(notification.to)
+            ? notification.to
+            : getValueFromSubmissionByKey(notification.to, fields);
+        strapi.log.info(JSON.stringify({
+            to: emailAddress,
             from: notification.from,
             subject: notification.subject,
             html: converter.makeHtml(message),
-        });
+        }));
         try {
             await strapi.plugins["email"].services.email.send({
-                to: validateEmail(notification.to)
-                    ? notification.to
-                    : getValueFromSubmissionByKey(notification.to, parsedData.fields),
+                to: emailAddress,
                 from: notification.from,
                 subject: notification.subject,
                 html: converter.makeHtml(message),
             });
         }
         catch (error) {
-            strapi.log.fatal(error);
+            strapi.log.error(error);
         }
     },
 });
@@ -44,6 +39,7 @@ function validateEmail(email) {
     return pattern.test(email);
 }
 function getValueFromSubmissionByKey(key, submission) {
+    console.log(key, submission);
     return submission[key];
 }
 function replaceDynamicVariables(message, submission) {
