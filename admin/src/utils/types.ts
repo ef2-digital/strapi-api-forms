@@ -88,6 +88,7 @@ export type SubmissionCollectionType = Array<SubmissionType>;
 
 export interface FieldType {
   label: string;
+  placeholder?: string;
   name: string;
   type?: FieldTypeEnum;
   options: FieldOptionProps[] | [];

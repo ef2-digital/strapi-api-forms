@@ -14,6 +14,7 @@ export enum Types {
   Change_Position = "CHANGE_POSITION",
   Set_Form = "SET_FORM",
   Edit_Form = "EDIT_FORM",
+  Set_Forms = "SET_FORMS",
 }
 
 type FormPayload = {
@@ -23,6 +24,7 @@ type FormPayload = {
 
   [Types.Add_Field]: {
     label: string;
+    placeholder: string;
     fieldType: FieldTypeEnum;
     options: FieldOptionProps[] | [];
     config: FieldConfigProps;
@@ -35,6 +37,7 @@ type FormPayload = {
   [Types.Edit_Field]: {
     name: string;
     label: string;
+    placeholder: string;
     fieldType: FieldTypeEnum;
     options: FieldOptionProps[] | [];
     config: FieldConfigProps;
@@ -48,6 +51,9 @@ type FormPayload = {
   [Types.Set_Form]: {
     form: FormType;
   };
+  [Types.Set_Forms]: {
+    forms: FormType[];
+  };
 };
 
 export type FormActions = ActionMap<FormPayload>[keyof ActionMap<FormPayload>];
@@ -58,11 +64,16 @@ export const formReducer = (
 ) => {
   const fields = state.fields.slice();
 
-  if (!state.form) {
+  if (!state.form || !state.forms) {
     return;
   }
 
   switch (action.type) {
+    case Types.Set_Forms:
+      state.forms = action.payload.forms;
+
+      return { ...state };
+
     case Types.Edit_Form:
       const { title } = action.payload;
 
@@ -78,11 +89,12 @@ export const formReducer = (
 
       return { ...state };
     case Types.Add_Field:
-      const { label, fieldType, options, config } = action.payload;
+      const { label, placeholder, fieldType, options, config } = action.payload;
 
       state.fields.push({
-        name: label.toLowerCase(),
+        name: label.replace(/['"]/g, ""),
         label: label,
+        placeholder: placeholder,
         type: fieldType!,
         options: options,
         config: config!,
@@ -95,8 +107,9 @@ export const formReducer = (
       fields.map((current, index) => {
         if (field.name === current.name) {
           fields[index] = {
-            name: field.label.toLowerCase(),
+            name: field.label.replace(/['"]/g, ""),
             label: field.label,
+            placeholder: field.placeholder,
             type: field.fieldType!,
             options: field.options,
             config: field.config!,

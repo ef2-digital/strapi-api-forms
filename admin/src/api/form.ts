@@ -8,7 +8,10 @@ const formRequests = {
     return data.json();
   },
 
-  getForm: async (id: string, queryFilter?: object): Promise<FormType> => {
+  getForm: async (
+    id: string | number,
+    queryFilter?: object
+  ): Promise<FormType> => {
     const data = await fetchInstance(
       `form/${id}${queryFilter ? `?${queryFilter}` : ""}`,
       "GET"

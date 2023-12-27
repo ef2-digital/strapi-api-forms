@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { Strapi } from "@strapi/strapi";
 const showdown = require("showdown");
 
@@ -18,66 +17,68 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     if (!notification || !submission) {
       return;
     }
-    const parsedData = Object.assign({
-      submission: {
-        createdAt: format(parseISO(submission.createdAt), "dd-MM-yyyy HH:mm"),
-        fields: JSON.parse(submission.submission),
-      },
-    });
 
-    const message = replaceDynamicVariables(
-      notification.message,
-      JSON.parse(submission.submission)
-    );
+    const fields = JSON.parse(submission.submission);
+    const message = replaceDynamicVariables(notification.message, fields);
 
     const converter = new showdown.Converter({
       tables: true,
       strikethrough: true,
     });
 
-    console.info({
-      to: notification.to,
-      from: notification.from,
-      subject: notification.subject,
-      html: converter.makeHtml(message),
-    });
+    const emailAddress = validateEmail(notification.to)
+      ? notification.to
+      : getValueFromSubmissionByKey(notification.to, fields);
+
+    strapi.log.info(
+      JSON.stringify({
+        to: emailAddress,
+        from: notification.from,
+        subject: notification.subject,
+        html: converter.makeHtml(message),
+      })
+    );
 
     try {
       await strapi.plugins["email"].services.email.send({
-        to: notification.to,
+        to: emailAddress,
         from: notification.from,
         subject: notification.subject,
         html: converter.makeHtml(message),
       });
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      strapi.log.error(error);
     }
   },
 });
 
+function validateEmail(email) {
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  return pattern.test(email);
+}
+
+function getValueFromSubmissionByKey(key, submission) {
+  console.log(key, submission);
+  return submission[key];
+}
+
 function replaceDynamicVariables(message, submission) {
-  const pattern = /\*\*{{\s*(.*?)\s*}}\*\*/g;
+  const pattern = /\*\*\s*(.*?)\s*\*\*/g;
   let match;
 
-  console.log("Initial message:", message);
-
   while ((match = pattern.exec(message)) !== null) {
-    const variableName = match[1]; // This will contain the variable name
-    const variableValue = submission[variableName]; // Get the corresponding value from the submission object
+    const variableName = match[1].replace(/['"]/g, "");
 
-    console.log("Matched variable:", variableName);
-    console.log("Corresponding value:", variableValue);
+    const variableValue = submission[variableName];
 
     if (variableValue !== undefined) {
-      message = message.replace(match[0], variableValue); // Replace the entire match with the variable value
+      message = message.replace(match[0], variableValue);
     }
   }
 
-  // Remove everything between <!-- and -->
   const commentPattern = /<!--[\s\S]*?-->/g;
   message = message.replace(commentPattern, "");
-
-  console.log("Final message:", message);
 
   return message;
 }

@@ -54,6 +54,9 @@ const FieldModal = ({
     formatMessage({ id: `${pluginId}.required` })
   );
   const [label, setLabel] = useState<string>(currentField?.label!);
+  const [placeholder, setPlaceholder] = useState<string>(
+    currentField?.placeholder!
+  );
   const [field, setField] = useState<FieldTypeEnum | null>(currentField?.type!);
 
   const [config, setConfig] = useState<FieldConfigProps>(currentField?.config!);
@@ -102,6 +105,7 @@ const FieldModal = ({
         type: Types.Add_Field,
         payload: {
           label: label,
+          placeholder: placeholder,
           fieldType: field!,
           config: config,
           options: options,
@@ -115,6 +119,7 @@ const FieldModal = ({
       type: Types.Edit_Field,
       payload: {
         label: label,
+        placeholder: placeholder,
         name: currentField?.name!,
         fieldType: field!,
         config: config,
@@ -160,6 +165,14 @@ const FieldModal = ({
                 name="label"
                 value={label}
                 onChange={(event) => setLabel(event.target.value)}
+              />
+              <TextInput
+                label={formatMessage({
+                  id: `${pluginId}.forms.fields.placeholder`,
+                })}
+                name="placeholder"
+                value={placeholder}
+                onChange={(event) => setPlaceholder(event.target.value)}
               />
 
               <Select

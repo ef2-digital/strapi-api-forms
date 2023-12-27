@@ -7,7 +7,7 @@ import MDEditor from "@uiw/react-md-editor";
 /*
  * Strapi Design system
  */
-import { Button, Flex, Typography, Stack } from "@strapi/design-system";
+import { Button, Box, Typography, Stack } from "@strapi/design-system";
 
 import { useIntl } from "react-intl";
 import pluginId from "../../pluginId";
@@ -48,7 +48,7 @@ const RichTextEditor = ({
     const afterCursor = message.substring(cursorPosition);
 
     setMessage(
-      `${beforeCursor} **{{${field.name}}}**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:8px; padding-right: 16px;padding-left: 16px;border-radius: 4px;--> ${afterCursor}`
+      `${beforeCursor} **${field.label}**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;--> ${afterCursor}`
     );
   };
 
@@ -92,13 +92,25 @@ const RichTextEditor = ({
         })}
       </Typography>
 
-      <Flex gap="1">
-        {fields.map((field) => (
-          <Button onClick={() => insertFieldIntoMessage(field)}>
-            {field.label}
-          </Button>
-        ))}
-      </Flex>
+      <Box>
+        {fields.map((field, index) => {
+          return (
+            <Button
+              style={{
+                display: "inline",
+                width: "auto",
+                margin: ".25rem",
+                padding: "0rem 1rem",
+              }}
+              key={`field-${index}`}
+              onClick={() => insertFieldIntoMessage(field)}
+            >
+              {field.label}
+            </Button>
+          );
+        })}
+      </Box>
+
       <>
         <MDEditor
           preview="live"
