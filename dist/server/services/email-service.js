@@ -34,12 +34,11 @@ exports.default = ({ strapi }) => ({
         }
     },
 });
-function validateEmail(email) {
+function validateEmail(emails) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return pattern.test(email);
+    return emails.split(",").every((email) => pattern.test(email.trim()));
 }
 function getValueFromSubmissionByKey(key, submission) {
-    console.log(key, submission);
     return submission[key];
 }
 function replaceDynamicVariables(message, submission) {

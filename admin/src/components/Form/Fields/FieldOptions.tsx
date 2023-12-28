@@ -124,7 +124,9 @@ const FieldOptions = ({
       >
         <SingleSelectOption value="100%">100%</SingleSelectOption>
         <SingleSelectOption value="75%">75%</SingleSelectOption>
+        <SingleSelectOption value="66%">66%</SingleSelectOption>
         <SingleSelectOption value="50%">50%</SingleSelectOption>
+        <SingleSelectOption value="33%">33%</SingleSelectOption>
         <SingleSelectOption value="25%">25%</SingleSelectOption>
       </SingleSelect>
 
