@@ -27,6 +27,7 @@
     "react-router-dom": "^5.3.4",
     "styled-components": "^5.3.6",
     "typescript": "5.0.4"
+    
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.0.0",
