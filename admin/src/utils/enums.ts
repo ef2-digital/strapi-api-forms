@@ -16,6 +16,7 @@ export enum FieldTypeEnum {
   Email = "email",
   Number = "number",
   Select = "select",
+  File = "file",
 }
 
 export enum FieldDirectionEnum {

@@ -41,14 +41,12 @@ export default factories.createCoreController(
     async export(ctx) {
       const { formId } = ctx.params;
 
-      ctx.body = await strapi
-        .service("plugin::api-forms.submission")!
-        .export(formId);
-
-      ctx.response.attachment(`export-${formId}-${Math.random()}.csv`);
-      ctx.set("content-type", "text/csv");
-
-      return ctx;
+      return {
+        data: await strapi
+          .service("plugin::api-forms.submission")!
+          .export(formId),
+        filename: `export-${formId}-${Math.random()}.csv`,
+      };
     },
 
     async get(ctx) {

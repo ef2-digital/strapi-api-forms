@@ -20,6 +20,7 @@ var FieldTypeEnum;
     FieldTypeEnum["Email"] = "email";
     FieldTypeEnum["Number"] = "number";
     FieldTypeEnum["Select"] = "select";
+    FieldTypeEnum["File"] = "file";
 })(FieldTypeEnum = exports.FieldTypeEnum || (exports.FieldTypeEnum = {}));
 var FieldDirectionEnum;
 (function (FieldDirectionEnum) {

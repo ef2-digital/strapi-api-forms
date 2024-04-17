@@ -1,15 +1,14 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { useState } from "react";
+import { useFetchClient, useNotification } from "@strapi/helper-plugin";
 
 /*
  * Strapi Design system
  */
 import { IconButton, Loader } from "@strapi/design-system";
-//@ts-ignore
 import { Download } from "@strapi/icons";
 import pluginId from "../../pluginId";
-import submissionRequests from "../../api/submission";
 
 type ExportButtonProps = {
   formId: number;
@@ -18,11 +17,25 @@ type ExportButtonProps = {
 const ExportButton = ({ formId }: ExportButtonProps): JSX.Element => {
   const { formatMessage } = useIntl();
   const [loading, toggleLoading] = useState(false);
+  const { get } = useFetchClient();
+  const toggleNotification = useNotification();
 
-  const exportSubmissions = async () => {
+  const processSubmissionExport = async (formId: number) => {
     toggleLoading(true);
 
-    history.pushState({}, "", `/api/${pluginId}/submissions/export/${formId}`);
+    get(`/${pluginId}/submissions/export/${formId}`).then((response: any) => {
+      const blob = new Blob([response.data.data]);
+      const link = document.createElement("a");
+
+      link.href = window.URL.createObjectURL(blob);
+      link.download = response.data.filename;
+      link.click();
+
+      toggleLoading(false);
+      toggleNotification({
+        type: "success",
+      });
+    });
   };
 
   return (
@@ -30,9 +43,7 @@ const ExportButton = ({ formId }: ExportButtonProps): JSX.Element => {
       <IconButton
         color="primary"
         disabled={loading}
-        onClick={() =>
-          (window.location.href = `/api/${pluginId}/submissions/export/${formId}`)
-        }
+        onClick={() => processSubmissionExport(formId)}
         label={formatMessage({
           id: `${pluginId}.forms.fields.actions.export_submissions`,
         })}

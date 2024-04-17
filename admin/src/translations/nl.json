@@ -74,6 +74,7 @@
   "forms.fields.types.email": "E-mailveld",
   "forms.fields.types.number": "Numeriek veld",
   "forms.fields.types.select": "Selectieveld",
+  "forms.fields.types.file": "Bestandveld",
   "forms.deleted": "Formulier verwijderd",
   "handlers.label": "E-mailhandelingen",
   "handlers.title": "E-mailhandelingen",

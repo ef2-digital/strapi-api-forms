@@ -12,6 +12,7 @@ const fieldMap = new Map<string, FunctionComponent<any>>([
   ["checkbox", (props: FieldType) => <CheckboxWrapper {...props} />],
   ["radio", (props: FieldType) => <RadioWrapper {...props} />],
   ["select", (props: FieldType) => <SelectWrapper {...props} />],
+  ["file", (props: FieldType) => <TextInput {...props} />],
 ]);
 
 export default fieldMap;

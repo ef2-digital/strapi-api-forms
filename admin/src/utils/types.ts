@@ -101,6 +101,9 @@ export type FieldOptionProps = {
 };
 export type FieldConfigProps = {
   required: boolean;
+  validation?: {
+    allowedTypes?: string;
+  };
   ui: {
     width?: string;
     classNames?: string;

@@ -84,7 +84,7 @@ const Form = () => {
       return history.push(`/plugins/${pluginId}/form/edit/${response.data.id}`);
     }
 
-    const response = await formRequests.updateForm(id!, state.form.attributes);
+    await formRequests.updateForm(id!, state.form.attributes);
 
     window.location.reload();
   };
