@@ -38,6 +38,7 @@ export default factories.createCoreController(
         },
       };
     },
+
     async dashboard(ctx) {
       const sanitizedQuery = await this.sanitizeQuery(ctx);
 

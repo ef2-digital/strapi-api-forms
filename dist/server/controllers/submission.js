@@ -2,6 +2,7 @@
 /**
  *  controller
  */
+//@ts-nocheck
 Object.defineProperty(exports, "__esModule", { value: true });
 const strapi_1 = require("@strapi/strapi");
 exports.default = strapi_1.factories.createCoreController("plugin::api-forms.submission", ({ strapi }) => ({
@@ -27,6 +28,15 @@ exports.default = strapi_1.factories.createCoreController("plugin::api-forms.sub
             .service("plugin::api-forms.submission")
             .dashboard(sanitizedQuery);
         return { data: data.results, meta: data.pagination };
+    },
+    async export(ctx) {
+        const { formId } = ctx.params;
+        ctx.body = await strapi
+            .service("plugin::api-forms.submission")
+            .export(formId);
+        ctx.response.attachment(`export-${formId}-${Math.random()}.csv`);
+        ctx.set("content-type", "text/csv");
+        return ctx;
     },
     async get(ctx) {
         const { id } = ctx.params;

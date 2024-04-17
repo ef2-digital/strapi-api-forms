@@ -41,6 +41,7 @@
   "forms.fields.actions.notification": "E-mailmelding",
   "forms.fields.actions.notifications": "E-mailmeldingen",
   "forms.fields.actions.submissions": "Inzendingen",
+  "forms.fields.actions.export_submissions": "Exporteer naar csv",
   "forms.fields.title": "Titel",
   "forms.fields.from": "Van",
   "forms.fields.to": "Naar",
