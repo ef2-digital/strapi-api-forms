@@ -1,8 +1,9 @@
 /**
  *  controller
  */
+//@ts-nocheck
 
-import { factories } from "@strapi/strapi";
+import { factories, UID } from "@strapi/strapi";
 
 export default factories.createCoreController(
   "plugin::api-forms.submission",
@@ -21,8 +22,6 @@ export default factories.createCoreController(
       if (!form) {
         return ctx.badRequest("No form");
       }
-      
-
 
       const submission = await strapi
         .service("plugin::api-forms.submission")!
@@ -39,6 +38,19 @@ export default factories.createCoreController(
 
       return { data: data.results, meta: data.pagination };
     },
+    async export(ctx) {
+      const { formId } = ctx.params;
+
+      ctx.body = await strapi
+        .service("plugin::api-forms.submission")!
+        .export(formId);
+
+      ctx.response.attachment(`export-${formId}-${Math.random()}.csv`);
+      ctx.set("content-type", "text/csv");
+
+      return ctx;
+    },
+
     async get(ctx) {
       const { id } = ctx.params;
 

@@ -21,6 +21,15 @@ export default {
         },
       },
       {
+        method: "GET",
+        path: "/submissions/export/:formId",
+        handler: "submission.export",
+        config: {
+          auth: false,
+          policies: [],
+        },
+      },
+      {
         method: "POST",
         path: "/forms",
         handler: "form.create",

@@ -8,8 +8,6 @@ import { useState, useContext } from "react";
 import {
   IconButtonGroup,
   IconButton,
-  Flex,
-  Icon,
   Table as StrapiTable,
   Thead,
   Tbody,
@@ -21,13 +19,14 @@ import {
 } from "@strapi/design-system";
 
 //@ts-ignore
-import { Trash, Pencil, Mail, Bell, PaperPlane, Dot } from "@strapi/icons";
+import { Trash, Pencil, Mail, Bell, PaperPlane } from "@strapi/icons";
 import formRequests from "../../api/form";
 import NotificationModal from "../Modal/NotificationModal";
 import { HandlerTypeEnum } from "../../utils/enums";
 import { FormContext } from "../../hooks/useForm";
 import { FormType } from "../../utils/types";
 import { Types } from "../../hooks/formReducer";
+import ExportButton from "../Submission/ExportButton";
 
 const Table = () => {
   const history = useHistory();
@@ -116,72 +115,51 @@ const Table = () => {
                   </Typography>
                 </Td>
                 <Td>
-                  <Typography textColor="neutral800">
-                    {form.attributes.submissions?.length ?? 0}
-                  </Typography>
+                  <IconButtonGroup>
+                    {Boolean(form.attributes?.submissions!.length) && (
+                      <ExportButton formId={form.id!} />
+                    )}
+                    <IconButton
+                      onClick={() =>
+                        history.push(
+                          `/plugins/${pluginId}/submission/list/${form.id}`
+                        )
+                      }
+                      label={formatMessage({
+                        id: `${pluginId}.forms.fields.actions.submissions`,
+                      })}
+                      icon={<PaperPlane />}
+                    />
+                  </IconButtonGroup>
                 </Td>
                 <Td>
                   <IconButtonGroup justifyContent="start">
                     {Boolean(form.attributes?.notifications!.length) &&
                       form.attributes?.notifications!.map((notification) => (
-                        <React.Fragment key={`notification-${notification.id}`}>
-                          <Flex style={{ position: "relative" }}>
-                            <IconButton
-                              onClick={() =>
-                                openNotificationModal(
-                                  form,
-                                  notification.identifier as HandlerTypeEnum
-                                )
-                              }
-                              label={formatMessage({
-                                id: `${pluginId}.forms.fields.actions.${notification.identifier}`,
-                              })}
-                              icon={
-                                notification.identifier ===
-                                HandlerTypeEnum.Notification ? (
-                                  <Bell />
-                                ) : (
-                                  <Mail />
-                                )
-                              }
-                            />
-                            <Icon
-                              style={{
-                                position: "absolute",
-                                width: ".65rem",
-                                top: "-0.25rem",
-                                left: "-0.25rem",
-                              }}
-                              aria-hidden={true}
-                              colors={(theme: any) => ({
-                                rect: {
-                                  fill: notification.enabled
-                                    ? theme.colors["success600"]
-                                    : theme.colors["danger600"],
-                                },
-                              })}
-                              as={Dot}
-                            />
-                          </Flex>
-                        </React.Fragment>
+                        <IconButton
+                          onClick={() =>
+                            openNotificationModal(
+                              form,
+                              notification.identifier as HandlerTypeEnum
+                            )
+                          }
+                          label={formatMessage({
+                            id: `${pluginId}.forms.fields.actions.${notification.identifier}`,
+                          })}
+                          icon={
+                            notification.identifier ===
+                            HandlerTypeEnum.Notification ? (
+                              <Bell />
+                            ) : (
+                              <Mail />
+                            )
+                          }
+                        />
                       ))}
                   </IconButtonGroup>
                 </Td>
                 <Td>
                   <IconButtonGroup justify="end">
-                    {Boolean(form.attributes?.submissions!.length) && (
-                      <IconButton
-                        onClick={() =>
-                          history.push(
-                            `/plugins/${pluginId}/submission/list/${form.id}`
-                          )
-                        }
-                        label={formatMessage({
-                          id: `${pluginId}.forms.fields.actions.submissions`,
-                        })}
-                        icon={<PaperPlane />}
-                      />
-                    )}
                     <IconButton
                       onClick={() =>
                         history.push(

@@ -41,6 +41,7 @@
   "forms.fields.actions.notification": "E-mail notification",
   "forms.fields.actions.notifications": "E-mail notifications",
   "forms.fields.actions.submissions": "Submissions",
+    "forms.fields.actions.export_submissions": "Download submissions",
   "forms.fields.title": "Title",
   "forms.fields.from": "From",
   "forms.fields.to": "To",
