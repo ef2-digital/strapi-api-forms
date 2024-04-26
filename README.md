@@ -1,6 +1,24 @@
 # Strapi Form Generator Plugin
 
-![Strapi Form Generator Plugin](https://example.com/strapi-form-generator.png)
+## NEW RELEASE
+As of 26-04-2024 there is a new release (1.2.0) which adds the following:
+### Upload field
+A new upload field, for processing files from a form, including uploading to uploads folder and as attachment in notifications
+
+### Checkbox group field
+A checkbox group field, for multiple grouped checkboxes with one label
+
+### Export submissions
+Export form submissions to CSV format
+
+### Start / End date setting
+Each form has an optional start/end date function, with a cron tasks that runs each night to check if a form needs to be active/inactive
+
+## Upcoming features
+### Date field
+### Relational field
+### Multiple steps form
+
 
 This is a plugin for [Strapi](https://strapi.io/), a headless CMS, that allows you to generate API forms with multiple input fields and email handling capabilities.
 
