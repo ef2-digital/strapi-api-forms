@@ -15,6 +15,7 @@ var FieldTypeEnum;
 (function (FieldTypeEnum) {
     FieldTypeEnum["Text"] = "text";
     FieldTypeEnum["Checkbox"] = "checkbox";
+    FieldTypeEnum["CheckboxGroup"] = "checkboxGroup";
     FieldTypeEnum["Radio"] = "radio";
     FieldTypeEnum["Textarea"] = "textarea";
     FieldTypeEnum["Email"] = "email";

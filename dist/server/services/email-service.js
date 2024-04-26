@@ -8,6 +8,7 @@ exports.default = ({ strapi }) => ({
         }
         const fields = JSON.parse(submission.submission);
         const message = replaceDynamicVariables(notification.message, fields);
+        let files = [];
         const converter = new showdown.Converter({
             tables: true,
             strikethrough: true,
@@ -15,22 +16,32 @@ exports.default = ({ strapi }) => ({
         const emailAddress = validateEmail(notification.to)
             ? notification.to
             : getValueFromSubmissionByKey(notification.to, fields);
-        strapi.log.info(JSON.stringify({
-            to: emailAddress,
-            from: notification.from,
-            subject: notification.subject,
-            html: converter.makeHtml(message),
-        }));
+        if (submission.files) {
+            files = submission.files.map((file) => {
+                return {
+                    filename: file.name,
+                    path: `${strapi.config.get('server.url')}${file.url}`,
+                };
+            });
+        }
         try {
-            await strapi.plugins["email"].services.email.send({
+            strapi.log.info(JSON.stringify({
                 to: emailAddress,
                 from: notification.from,
                 subject: notification.subject,
                 html: converter.makeHtml(message),
+            }));
+            await strapi.plugins["email"].services.email.send({
+                to: 'daan@ef2.nl',
+                from: 'daan@ef2.nl',
+                subject: notification.subject,
+                html: converter.makeHtml(message),
+                attachments: files !== null && files !== void 0 ? files : [],
             });
         }
         catch (error) {
-            strapi.log.error(error);
+            strapi.log.error('Something went wrong: ' + error);
+            console.log(JSON.stringify(error));
         }
     },
 });

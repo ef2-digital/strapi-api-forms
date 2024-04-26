@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useIntl } from "react-intl";
 import { useEffect, useState } from "react";
 import submissionRequests from "../../api/submission";
@@ -8,6 +8,16 @@ import Header from "../../components/Submission/Header";
 import pluginId from "../../pluginId";
 import { Box, Typography, Grid, GridItem } from "@strapi/design-system";
 import { format, parseISO } from "date-fns";
+
+import {
+  Card,
+  CardBody,
+  CardContent,
+  CardBadge,
+  CardTitle,
+  CardSubtitle,
+} from '@strapi/design-system';
+import { Download } from "@strapi/icons";
 
 const Submission = () => {
   const { formatMessage } = useIntl();
@@ -70,18 +80,18 @@ const SubmissionBox = ({
 
   return (
     <Grid gap={5}>
-      <GridItem padding={1} col={12} s={10} lg={8}>
+      <GridItem padding={1} col={12} s={6} lg={6}>
         <Box background="" padding={4}>
           <Box paddingBottom={2}>
             <Typography variant="omega" fontWeight="bold">
               {formatMessage({
-                id: `${pluginId}.submissions.submission.info_title`,
+                id: `${pluginId}.submissions.submissions.info_title`,
               })}
             </Typography>
           </Box>
           <Box>
             <Grid>
-              <GridItem col={6}>
+              <GridItem col={3}>
                 <Typography variant="omega" fontWeight="semiBold">
                   {formatMessage({
                     id: `${pluginId}.submissions.submission_date`,
@@ -89,14 +99,14 @@ const SubmissionBox = ({
                   :
                 </Typography>
               </GridItem>
-              <GridItem col={6}>
+              <GridItem col={3}>
                 <Typography variant="omega">{submissionDate}</Typography>
               </GridItem>
             </Grid>
           </Box>
           <Box>
             <Grid>
-              <GridItem col={6}>
+              <GridItem col={3}>
                 <Typography variant="omega" fontWeight="semiBold">
                   {formatMessage({
                     id: `${pluginId}.submissions.form_name`,
@@ -132,6 +142,27 @@ const SubmissionBox = ({
           })}
         </Box>
       </GridItem>
+      {submission.attributes.files && (
+       <GridItem padding={1} col={9} s={9}>
+          {Object.entries(submission.attributes.files).map(([index, file]) => {
+            return (
+             <Card id={index} key={index}>
+          <CardBody>
+            <Box padding={2} background="primary100">
+              <a href={file.url!} target="_new">
+                <Download />
+              </a>
+            </Box>
+            <CardContent paddingLeft={2}>
+              <CardTitle>{file.name}</CardTitle>
+              <CardSubtitle>{file.ext}</CardSubtitle>
+            </CardContent>
+            <CardBadge>{file.mime}</CardBadge>
+          </CardBody>
+        </Card>)}
+            
+          )}
+      </GridItem>)}
     </Grid>
   );
 };

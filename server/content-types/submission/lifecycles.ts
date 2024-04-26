@@ -32,11 +32,11 @@ export default {
       "plugin::api-forms.form",
       params.data.form,
       {
-        populate: { notifications: true },
+        populate: { notifications: true, files: true },
       }
     );
 
-    if (!form.notifications) {
+    if (!form || !form.notifications) {
       return;
     }
 

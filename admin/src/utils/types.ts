@@ -35,6 +35,11 @@ export interface FormType {
   id?: number | null;
   attributes: {
     title: string;
+    successMessage: string;
+    errorMessage: string;
+    active: boolean;
+    dateFrom: string;
+    dateTill: string;
     fields: string;
     createdAt?: string;
     updatedAt?: string;
@@ -69,6 +74,7 @@ export interface SubmissionType {
   submission: string;
   createdAt: string;
   updatedAt: string;
+  files: Array<any>;
 }
 
 export interface SubmissionDetailType {
@@ -78,6 +84,7 @@ export interface SubmissionDetailType {
       id?: string;
       title: string;
     };
+    files: any;
     submission: string;
     createdAt: string;
     updatedAt: string;
