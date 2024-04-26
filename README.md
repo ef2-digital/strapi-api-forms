@@ -1,4 +1,5 @@
 # Strapi Form Generator Plugin
+This is a plugin for [Strapi](https://strapi.io/), a headless CMS, that allows you to generate API forms with multiple input fields and email handling capabilities.
 
 ## NEW RELEASE
 As of 26-04-2024 there is a new release (1.2.0) which adds the following:
@@ -19,8 +20,6 @@ Each form has an optional start/end date function, with a cron tasks that runs e
 ### Relational field
 ### Multiple steps form
 
-
-This is a plugin for [Strapi](https://strapi.io/), a headless CMS, that allows you to generate API forms with multiple input fields and email handling capabilities.
 
 ## Features
 
