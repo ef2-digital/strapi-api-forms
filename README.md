@@ -1,22 +1,5 @@
 # Strapi Form Generator Plugin
 
-This is a plugin for [Strapi](https://strapi.io/), a headless CMS, that allows you to generate API forms with multiple input fields and email handling capabilities.
-
-## Features
-
-- Generate API forms with multiple input fields
-- Email handling capabilities
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Prerequisites
-
-You need to have Strapi installed on your machine. If you don't have it installed, you can follow the instructions [here](https://strapi.io/documentation/developer-docs/latest/setup-deployment-guides/installation/cli.html).
-
-# Strapi Form Generator Plugin
-
 ![Strapi Form Generator Plugin](https://example.com/strapi-form-generator.png)
 
 This is a plugin for [Strapi](https://strapi.io/), a headless CMS, that allows you to generate API forms with multiple input fields and email handling capabilities.
