@@ -23,5 +23,5 @@ exports.default = {
     services: services_1.default,
     contentTypes: content_types_1.default,
     policies: policies_1.default,
-    middlewares: middlewares_1.default,
+    middlewares: middlewares_1.default
 };

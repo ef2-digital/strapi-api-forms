@@ -6,7 +6,6 @@ import {
   NotificationType,
   SubmissionType,
 } from "../../admin/src/utils/types";
-import { format, parseISO } from "date-fns";
 
 export default ({ strapi }: { strapi: Strapi }) => ({
   async process(
@@ -14,13 +13,15 @@ export default ({ strapi }: { strapi: Strapi }) => ({
     submission: SubmissionType,
     form: FormType
   ) {
+
     if (!notification || !submission) {
       return;
     }
 
     const fields = JSON.parse(submission.submission);
     const message = replaceDynamicVariables(notification.message, fields);
-
+    let files = [];
+    
     const converter = new showdown.Converter({
       tables: true,
       strikethrough: true,
@@ -30,7 +31,18 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       ? notification.to
       : getValueFromSubmissionByKey(notification.to, fields);
 
-    strapi.log.info(
+    if (submission.files) {
+      files = submission.files.map((file) => {
+        return {
+          filename: file.name,
+          path: `${strapi.config.get('server.url')}${file.url}`,
+        }
+
+      });
+    }
+
+    try {
+       strapi.log.info(
       JSON.stringify({
         to: emailAddress,
         from: notification.from,
@@ -39,15 +51,16 @@ export default ({ strapi }: { strapi: Strapi }) => ({
       })
     );
 
-    try {
       await strapi.plugins["email"].services.email.send({
-        to: emailAddress,
-        from: notification.from,
+        to: 'daan@ef2.nl',
+        from: 'daan@ef2.nl',
         subject: notification.subject,
         html: converter.makeHtml(message),
-      });
+        attachments: files ?? [],
+      }); 
     } catch (error) {
-      strapi.log.error(error);
+      strapi.log.error('Something went wrong: ' + error);
+      console.log(JSON.stringify(error))
     }
   },
 });

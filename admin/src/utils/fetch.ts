@@ -10,10 +10,13 @@ const fetchInstance = async (
   endpoint: string,
   method: string,
   options?: object | null,
-  formData?: object | null
-) =>
-  fetch(
-    `${process.env.STRAPI_ADMIN_BACKEND_URL}/api/${pluginId}/${endpoint}${
+  formData?: object | null,
+  isAdmin?: boolean
+) => {
+  const route = `${isAdmin ? "/" : "/api/"}`;
+
+  return fetch(
+    `${route}${pluginId}/${endpoint}${
       options ? `?${new URLSearchParams({ ...options })}` : ""
     }`,
     {
@@ -23,5 +26,6 @@ const fetchInstance = async (
       body: formData && JSON.stringify({ data: formData }),
     }
   );
+};
 
 export default fetchInstance;

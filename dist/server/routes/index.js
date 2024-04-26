@@ -14,24 +14,6 @@ exports.default = {
                 },
             },
             {
-                method: "GET",
-                path: "/submissions",
-                handler: "submission.dashboard",
-                config: {
-                    auth: false,
-                    policies: [],
-                },
-            },
-            {
-                method: "GET",
-                path: "/submissions/export/:formId",
-                handler: "submission.export",
-                config: {
-                    auth: false,
-                    policies: [],
-                },
-            },
-            {
                 method: "POST",
                 path: "/forms",
                 handler: "form.create",
@@ -44,15 +26,6 @@ exports.default = {
                 method: "GET",
                 path: "/form/:id",
                 handler: "form.get",
-                config: {
-                    auth: false,
-                    policies: [],
-                },
-            },
-            {
-                method: "GET",
-                path: "/form/:id/submissions",
-                handler: "form.submissions",
                 config: {
                     auth: false,
                     policies: [],
@@ -77,15 +50,6 @@ exports.default = {
                 },
             },
             {
-                method: "GET",
-                path: "/submission/:id",
-                handler: "submission.get",
-                config: {
-                    auth: false,
-                    policies: [],
-                },
-            },
-            {
                 method: "POST",
                 path: "/submission/post",
                 handler: "submission.post",
@@ -103,87 +67,43 @@ exports.default = {
                     policies: [],
                 },
             },
-            // {
-            //   method: "GET",
-            //   path: "/form/add",
-            //   handler: "formController.add",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "GET",
-            //   path: "/form/submissions",
-            //   handler: "formController.submissions",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "GET",
-            //   path: "/form/handlers",
-            //   handler: "formController.handlers",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "DELETE",
-            //   path: "/form",
-            //   handler: "formController.delete",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "POST",
-            //   path: "/form",
-            //   handler: "formController.update",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "GET",
-            //   path: "/form/model",
-            //   handler: "formController.model",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "GET",
-            //   path: "/submissions",
-            //   handler: "submissionController.index",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "GET",
-            //   path: "/submission",
-            //   handler: "submissionController.view",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
-            // {
-            //   method: "POST",
-            //   path: "/handler/enabled",
-            //   handler: "handlerController.enabled",
-            //   config: {
-            //     auth: false,
-            //     policies: [],
-            //   },
-            // },
+        ],
+    },
+    admin: {
+        type: "admin",
+        routes: [
+            {
+                method: "GET",
+                path: "/submissions",
+                handler: "submission.dashboard",
+                config: {
+                    policies: ["admin::isAuthenticatedAdmin"],
+                },
+            },
+            {
+                method: "GET",
+                path: "/submissions/export/:formId",
+                handler: "submission.export",
+                config: {
+                    policies: ["admin::isAuthenticatedAdmin"],
+                },
+            },
+            {
+                method: "GET",
+                path: "/submission/:id",
+                handler: "submission.get",
+                config: {
+                    policies: ["admin::isAuthenticatedAdmin"],
+                },
+            },
+            {
+                method: "GET",
+                path: "/form/:id/submissions",
+                handler: "form.submissions",
+                config: {
+                    policies: ["admin::isAuthenticatedAdmin"],
+                },
+            },
         ],
     },
 };

@@ -3,12 +3,7 @@
 
   "compilerOptions": {
     "target": "ESNext",
-    "strict": true,
-    "jsx": "preserve",
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "allowJs": true,
+    "strict": true
   },
 
   "include": ["admin", "custom.d.ts"],

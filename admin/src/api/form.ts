@@ -3,6 +3,7 @@ import { FormResponse, FormType, FormRequest } from "../utils/types";
 
 const formRequests = {
   getForms: async (queryFilter?: object): Promise<FormResponse> => {
+    console.log("queryFilter", queryFilter);
     const data = await fetchInstance(`forms?${queryFilter}`, "GET");
 
     return data.json();
@@ -27,7 +28,10 @@ const formRequests = {
   ): Promise<FormType> => {
     const data = await fetchInstance(
       `form/${id}/submissions${queryFilter ? `?${queryFilter}` : ""}`,
-      "GET"
+      "GET",
+      null,
+      null,
+      true
     );
     const form = await data.json();
 

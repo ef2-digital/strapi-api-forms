@@ -21,9 +21,9 @@ exports.default = {
             throw new ForbiddenError("No submission");
         }
         const form = await strapi.entityService.findOne("plugin::api-forms.form", params.data.form, {
-            populate: { notifications: true },
+            populate: { notifications: true, files: true },
         });
-        if (!form.notifications) {
+        if (!form || !form.notifications) {
             return;
         }
         //@ts-ignore

@@ -21,6 +21,24 @@
         "title": {
             "type": "string"
         },
+        "successMessage": {
+            "type": "string",
+            "required": true
+        },
+        "errorMessage": {
+            "type": "string",
+            "required": true
+        },
+        "active": {
+            "type": "boolean",
+            "default": true
+        },
+        "dateFrom": {
+            "type": "string"
+        },
+        "dateTill": {
+            "type": "string"
+        },
         "fields": {
             "type": "json"
         },

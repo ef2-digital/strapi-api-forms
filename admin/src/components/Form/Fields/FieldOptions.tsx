@@ -15,6 +15,7 @@ import {
 import { useIntl } from "react-intl";
 import { FieldConfigProps } from "../../../utils/types";
 import pluginId from "../../../pluginId";
+import FieldValidation from "./FieldValidation";
 
 type FieldOptions = {
   field: FieldTypeEnum;
@@ -60,7 +61,7 @@ const FieldOptions = ({
   switch (field) {
     case FieldTypeEnum.Select:
     case FieldTypeEnum.Radio:
-    case FieldTypeEnum.Checkbox:
+    case FieldTypeEnum.CheckboxGroup:
       fieldOptions = (
         <Box>
           <Textarea
@@ -145,6 +146,7 @@ const FieldOptions = ({
       >
         {formatMessage({ id: `${pluginId}.forms.fields.extra_props.required` })}
       </Checkbox>
+      <FieldValidation config={config} setConfig={setConfig} field={field} />
     </Stack>
   );
 };

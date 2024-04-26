@@ -11,6 +11,7 @@ import { Plus } from "@strapi/icons";
 import { NavLink } from "react-router-dom";
 import { FormContext } from "../../hooks/useForm";
 import { Types } from "../../hooks/formReducer";
+const qs = require("qs");
 
 const FormList = () => {
   const { formatMessage } = useIntl();
@@ -18,7 +19,14 @@ const FormList = () => {
 
   useEffect(() => {
     formRequests
-      .getForms({ "pagination[page]": 1, "pagination[pageSize]": 9999 })
+      .getForms(
+        qs.stringify(
+          { "pagination[page]": 1, "pagination[pageSize]": 9999 },
+          {
+            encodeValuesOnly: true,
+          }
+        )
+      )
       .then((response: FormResponse) => {
         dispatch({
           type: Types.Set_Forms,

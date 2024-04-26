@@ -7,20 +7,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const strapi_1 = require("@strapi/strapi");
 exports.default = strapi_1.factories.createCoreController("plugin::api-forms.submission", ({ strapi }) => ({
     async post(ctx) {
-        const { data } = ctx.request.body;
-        if (!data) {
+        const { form, submission } = ctx.request.body;
+        const parsedSubmission = JSON.parse(submission);
+        const files = [];
+        if (!form && !parsedSubmission) {
             return ctx.badRequest("No data");
         }
-        const form = await strapi
+        const strapiForm = await strapi
             .service("plugin::api-forms.form")
-            .findOne(data.form);
-        if (!form) {
+            .findOne(form);
+        if (!strapiForm) {
             return ctx.badRequest("No form");
         }
-        const submission = await strapi
+        if (ctx.request.files) {
+            await Promise.all(Object.entries(ctx.request.files).map(async ([key, file]) => {
+                const uploadedFile = await strapi
+                    .service("plugin::api-forms.submission")
+                    .upload(file);
+                if (uploadedFile) {
+                    files.push(uploadedFile);
+                }
+            }));
+        }
+        const postedSubmission = await strapi
             .service("plugin::api-forms.submission")
-            .create(ctx.request.body, { populate: ["form"] });
-        return submission;
+            .create({ data: { form, submission: JSON.stringify(parsedSubmission), files }, populate: ["form", "files"] });
+        return postedSubmission;
     },
     async dashboard(ctx) {
         const sanitizedQuery = await this.sanitizeQuery(ctx);
@@ -31,19 +43,19 @@ exports.default = strapi_1.factories.createCoreController("plugin::api-forms.sub
     },
     async export(ctx) {
         const { formId } = ctx.params;
-        ctx.body = await strapi
-            .service("plugin::api-forms.submission")
-            .export(formId);
-        ctx.response.attachment(`export-${formId}-${Math.random()}.csv`);
-        ctx.set("content-type", "text/csv");
-        return ctx;
+        return {
+            data: await strapi
+                .service("plugin::api-forms.submission")
+                .export(formId),
+            filename: `export-${formId}-${Math.random()}.csv`,
+        };
     },
     async get(ctx) {
         const { id } = ctx.params;
         const data = await strapi
             .service("plugin::api-forms.submission")
             .findOne(id, {
-            populate: ["form "],
+            populate: ["form", "files"],
         });
         return {
             data: {
