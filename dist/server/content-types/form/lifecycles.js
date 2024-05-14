@@ -1,41 +1,49 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const { ForbiddenError } = require("@strapi/utils").errors;
+const { ForbiddenError } = require('@strapi/utils').errors;
 exports.default = {
     async afterCreate(event) {
         const { result, params } = event;
+        strapi.log.debug('afterCreate');
+        strapi.log.debug(JSON.stringify(result));
         if (!result.id) {
-            throw new ForbiddenError("No form");
+            throw new ForbiddenError('No form');
         }
-        const defaultEmail = await strapi.plugins["email"].services.email.getProviderSettings().settings.defaultFrom;
+        const defaultEmail = await strapi.plugins['email'].services.email.getProviderSettings().settings.defaultFrom;
         const message = JSON.parse(result.fields).map((field) => {
             if (field.type === 'file') {
                 return '';
             }
-            return '**' + field.label + '**: **' + field.name + '**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;-->\\';
+            return ('**' +
+                field.label +
+                '**: **' +
+                field.name +
+                '**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;-->  \n');
         });
-        const notification = await strapi.entityService.create("plugin::api-forms.notification", {
+        strapi.log.info('messages:');
+        strapi.log.info(message.join('\n').toString());
+        const notification = await strapi.entityService.create('plugin::api-forms.notification', {
             data: {
                 form: result.id,
                 enabled: true,
-                identifier: "notification",
-                service: "emailService",
+                identifier: 'notification',
+                service: 'emailService',
                 from: defaultEmail,
                 to: defaultEmail,
-                message: message.join("\n").toString(),
-                subject: "New submission from API form: " + result.title,
+                message: message.join('\n').toString(),
+                subject: 'New submission from API form: ' + result.title,
             },
         });
-        const confirmation = await strapi.entityService.create("plugin::api-forms.notification", {
+        const confirmation = await strapi.entityService.create('plugin::api-forms.notification', {
             data: {
                 form: result.id,
                 enabled: false,
-                identifier: "confirmation",
-                service: "emailService",
+                identifier: 'confirmation',
+                service: 'emailService',
                 from: defaultEmail,
-                to: "",
-                subject: "",
-                message: message.join("\n").toString(),
+                to: '',
+                subject: '',
+                message: message.join('\n').toString(),
             },
         });
         return [confirmation, notification];

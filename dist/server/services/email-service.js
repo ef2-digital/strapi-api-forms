@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const showdown = require("showdown");
+const showdown = require('showdown');
 exports.default = ({ strapi }) => ({
     async process(notification, submission, form) {
         if (!notification || !submission) {
@@ -13,9 +13,7 @@ exports.default = ({ strapi }) => ({
             tables: true,
             strikethrough: true,
         });
-        const emailAddress = validateEmail(notification.to)
-            ? notification.to
-            : getValueFromSubmissionByKey(notification.to, fields);
+        const emailAddress = validateEmail(notification.to) ? notification.to : getValueFromSubmissionByKey(notification.to, fields);
         if (submission.files) {
             files = submission.files.map((file) => {
                 return {
@@ -31,7 +29,7 @@ exports.default = ({ strapi }) => ({
                 subject: notification.subject,
                 html: converter.makeHtml(message),
             }));
-            await strapi.plugins["email"].services.email.send({
+            await strapi.plugins['email'].services.email.send({
                 to: 'daan@ef2.nl',
                 from: 'daan@ef2.nl',
                 subject: notification.subject,
@@ -41,13 +39,13 @@ exports.default = ({ strapi }) => ({
         }
         catch (error) {
             strapi.log.error('Something went wrong: ' + error);
-            console.log(JSON.stringify(error));
+            strapi.log.error(JSON.stringify(error));
         }
     },
 });
 function validateEmail(emails) {
     const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emails.split(",").every((email) => pattern.test(email.trim()));
+    return emails.split(',').every((email) => pattern.test(email.trim()));
 }
 function getValueFromSubmissionByKey(key, submission) {
     return submission[key];
@@ -56,13 +54,13 @@ function replaceDynamicVariables(message, submission) {
     const pattern = /\*\*\s*(.*?)\s*\*\*/g;
     let match;
     while ((match = pattern.exec(message)) !== null) {
-        const variableName = match[1].replace(/['"]/g, "");
+        const variableName = match[1].replace(/['"]/g, '');
         const variableValue = submission[variableName];
         if (variableValue !== undefined) {
             message = message.replace(match[0], variableValue);
         }
     }
     const commentPattern = /<!--[\s\S]*?-->/g;
-    message = message.replace(commentPattern, "");
+    message = message.replace(commentPattern, '');
     return message;
 }
