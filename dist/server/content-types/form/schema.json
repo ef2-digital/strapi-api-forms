@@ -22,11 +22,11 @@
             "type": "string"
         },
         "successMessage": {
-            "type": "string",
+            "type": "text",
             "required": true
         },
         "errorMessage": {
-            "type": "string",
+            "type": "text",
             "required": true
         },
         "active": {
