@@ -8,16 +8,18 @@ const node_1 = require("@json2csv/node");
 exports.default = strapi_1.factories.createCoreService('plugin::api-forms.submission', ({ strapi }) => ({
     async dashboard(params) {
         const { results, pagination } = await super.find(params, {
-            populate: ['form']
+            populate: ['form'],
         });
         return { results, pagination };
     },
     async export(formId) {
-        const { results } = await super.find({ where: { form: formId } });
-        const data = results.map((result) => {
+        const entities = await strapi.entityService.findMany('plugin::api-forms.submission', {
+            filters: { form: formId },
+        });
+        const data = entities.map((result) => {
             return {
                 ...JSON.parse(result.submission),
-                createdAt: result.createdAt
+                createdAt: result.createdAt,
             };
         });
         const parser = new node_1.AsyncParser();
@@ -30,15 +32,15 @@ exports.default = strapi_1.factories.createCoreService('plugin::api-forms.submis
                     fileInfo: {
                         name: file.name,
                         caption: file.name,
-                        alternativeText: file.name
-                    }
+                        alternativeText: file.name,
+                    },
                 },
-                files: file
+                files: file,
             });
             return createdFiles[0];
         }
         catch (error) {
             strapi.log.error(error);
         }
-    }
+    },
 }));
