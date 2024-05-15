@@ -1,7 +1,7 @@
 import { Strapi } from '@strapi/strapi';
 const showdown = require('showdown');
 
-import { FormType, NotificationType, SubmissionType } from '../../admin/src/utils/types';
+import { FormType, NotificationType, SubmissionType, EmailSubmissionType } from '../../admin/src/utils/types';
 
 export default ({ strapi }: { strapi: Strapi }) => ({
 	async process(notification: NotificationType, submission: SubmissionType, form: FormType) {
@@ -10,44 +10,54 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 		}
 
 		const fields = JSON.parse(submission.submission);
+		const provider = strapi.plugins['email'].services.email.getProviderSettings();
 		const message = replaceDynamicVariables(notification.message, fields);
-		let files = [];
-
+		const emailAddress = validateEmail(notification.to) ? notification.to : getValueFromSubmissionByKey(notification.to, fields);
 		const converter = new showdown.Converter({
 			tables: true,
 			strikethrough: true,
 		});
 
-		const emailAddress = validateEmail(notification.to) ? notification.to : getValueFromSubmissionByKey(notification.to, fields);
-
-		if (submission.files) {
-			files = submission.files.map((file) => {
-				return {
-					filename: file.name,
-					path: `${strapi.config.get('server.url')}${file.url}`,
-				};
-			});
+		if (!emailAddress) {
+			strapi.log.error('No valid email address found');
+			return;
 		}
 
-		try {
-			strapi.log.info(
-				JSON.stringify({
-					to: emailAddress,
-					from: notification.from,
-					subject: notification.subject,
-					html: converter.makeHtml(message),
-				})
-			);
+		const emailSubmission: EmailSubmissionType = {
+			to: emailAddress,
+			from: notification.from,
+			subject: notification.subject,
+			html: converter.makeHtml(message),
+		};
 
-			await strapi.plugins['email'].services.email.send({
-				to: 'daan@ef2.nl',
-				from: 'daan@ef2.nl',
-				subject: notification.subject,
-				html: converter.makeHtml(message),
-				attachments: files ?? [],
-			});
+		if (submission.files) {
+			switch (provider.provider) {
+				case 'mailgun':
+					emailSubmission.attachment = submission.files.map((file) => {
+						return {
+							filename: file.name,
+							data: `${strapi.config.get('server.url')}${file.url}`,
+						};
+					});
+					break;
+				default:
+					emailSubmission.attachments = submission.files.map((file) => {
+						return {
+							filename: file.name,
+							path: `${strapi.config.get('server.url')}${file.url}`,
+						};
+					});
+					break;
+			}
+		}
+
+		strapi.log.info('Sending email');
+		strapi.log.info(JSON.stringify(emailSubmission));
+
+		try {
+			await strapi.plugins['email'].services.email.send(emailSubmission);
 		} catch (error) {
-			strapi.log.error('Something went wrong: ' + error);
+			strapi.log.error('Something went wrong sending email: ' + error);
 			strapi.log.error(JSON.stringify(error));
 		}
 	},
