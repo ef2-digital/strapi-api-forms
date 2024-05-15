@@ -169,7 +169,7 @@ export type EmailSubmissionType = {
 	from: string;
 	subject: string;
 	html: string;
-	attachment?: { data: string; filename: string }[];
+	attachment?: { data?: string; filename: string }[];
 	attachments?: { path?: string; filename: string }[];
 };
 

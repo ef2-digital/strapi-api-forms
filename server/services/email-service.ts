@@ -1,7 +1,9 @@
 import { Strapi } from '@strapi/strapi';
 const showdown = require('showdown');
+const request = require('request');
 
 import { FormType, NotificationType, SubmissionType, EmailSubmissionType } from '../../admin/src/utils/types';
+import { contentTypes } from '@strapi/utils';
 
 export default ({ strapi }: { strapi: Strapi }) => ({
 	async process(notification: NotificationType, submission: SubmissionType, form: FormType) {
@@ -31,22 +33,14 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 		};
 
 		if (submission.files) {
+			const files = await getFiles(submission, provider.provider);
+
 			switch (provider.provider) {
 				case 'mailgun':
-					emailSubmission.attachment = submission.files.map((file) => {
-						return {
-							filename: file.name,
-							data: `${strapi.config.get('server.url')}${file.url}`,
-						};
-					});
+					emailSubmission.attachment = files;
 					break;
 				default:
-					emailSubmission.attachments = submission.files.map((file) => {
-						return {
-							filename: file.name,
-							path: `${strapi.config.get('server.url')}${file.url}`,
-						};
-					});
+					emailSubmission.attachments = files;
 					break;
 			}
 		}
@@ -90,4 +84,26 @@ function replaceDynamicVariables(message, submission) {
 	message = message.replace(commentPattern, '');
 
 	return message;
+}
+
+async function getFiles(submission, provider) {
+	const fileProvider = strapi.plugins['upload'].services.upload.provider;
+
+	if (!fileProvider || fileProvider === 'local') {
+		return submission.files.map((file) => {
+			let attachment = {};
+			attachment['filename'] = file.name;
+			attachment[provider === 'mailgun' ? 'data' : 'path'] = `${strapi.config.get('server.url')}${file.url}`;
+
+			return attachment;
+		});
+	}
+
+	const files = await Promise.all(
+		submission.files.map(async (file) => {
+			return request(`${strapi.config.get('server.url')}${file.url}`);
+		})
+	);
+
+	return files;
 }
