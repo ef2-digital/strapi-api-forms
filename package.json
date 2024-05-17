@@ -1,6 +1,6 @@
 {
 	"name": "strapi-api-forms",
-	"version": "1.4.1",
+	"version": "1.4.2",
 	"description": "This is the description of the plugin.",
 	"strapi": {
 		"name": "api-forms",
