@@ -112,7 +112,6 @@ const Form = () => {
 				title={fetchedForm?.attributes?.title}
 				subtitle={Boolean(fetchedForm) ? formatMessage({ id: `${pluginId}.forms.edit.subtitle` }) : ''}
 			/>
-
 			{showAlert ? <AlertWrapper variant={alertVariant} toggleAlert={toggleAlert} /> : <></>}
 			<Box paddingLeft={10} paddingRight={10}>
 				<Stack spacing={2} marginBottom={2}>
@@ -174,16 +173,19 @@ const Form = () => {
 										) : (
 											<DatePicker
 												locale="nl-NL"
+												minDate={new Date()}
 												label={formatMessage({ id: `${pluginId}.forms.fields.dateFrom` })}
 												onChange={(value) => {
 													if (!value) {
 														return;
 													}
 
+													const currentDate = new Date();
 													setInitialFromDate(null);
+
 													dispatch({
 														type: Types.Edit_Form,
-														payload: { dateFrom: format(value, 'dd-MM-yyyy') + 'T00:00:00.000Z' },
+														payload: { dateFrom: format(value, 'dd-MM-yyyy') + 'T00:00:00.000Z', active: currentDate >= value },
 													});
 												}}
 												onClear={() =>
@@ -191,6 +193,7 @@ const Form = () => {
 														type: Types.Edit_Form,
 														payload: {
 															dateFrom: null,
+															active: true,
 														},
 													})
 												}

@@ -4,14 +4,14 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const strapi_1 = require("@strapi/strapi");
-exports.default = strapi_1.factories.createCoreController("plugin::api-forms.form", ({ strapi }) => ({
+exports.default = strapi_1.factories.createCoreController('plugin::api-forms.form', ({ strapi }) => ({
     async submissions(ctx) {
         const { id } = ctx.params;
-        const data = await strapi.service("plugin::api-forms.form").findOne(id, {
+        const data = await strapi.service('plugin::api-forms.form').findOne(id, {
             populate: {
-                submissions: { sort: "createdAt:desc", offset: 0, limit: 999 },
+                submissions: { sort: 'createdAt:desc', offset: 0, limit: 999 },
             },
-            sort: "createdAt:desc",
+            sort: 'createdAt:desc',
         });
         return {
             data: {
@@ -22,9 +22,7 @@ exports.default = strapi_1.factories.createCoreController("plugin::api-forms.for
     },
     async get(ctx) {
         const { id } = ctx.params;
-        const data = await strapi
-            .service("plugin::api-forms.form")
-            .findOne(id, { populate: "*" });
+        const data = await strapi.service('plugin::api-forms.form').findOne(id, { populate: '*' });
         return {
             data: {
                 id: data.id,
@@ -32,11 +30,21 @@ exports.default = strapi_1.factories.createCoreController("plugin::api-forms.for
             },
         };
     },
+    async fields(ctx) {
+        const { formId } = ctx.params;
+        const data = await strapi.service('plugin::api-forms.form').findOne(formId, { filters: { active: { $eq: true } } });
+        if (!data.active) {
+            return { data: { fields: null } };
+        }
+        return {
+            data: {
+                fields: data.fields,
+            },
+        };
+    },
     async dashboard(ctx) {
         const sanitizedQuery = await this.sanitizeQuery(ctx);
-        const data = await strapi
-            .service("plugin::api-forms.form")
-            .dashboard(sanitizedQuery);
+        const data = await strapi.service('plugin::api-forms.form').dashboard(sanitizedQuery);
         return { data: data.results, meta: data.pagination };
     },
 }));
