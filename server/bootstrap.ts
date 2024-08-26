@@ -18,7 +18,7 @@ export default ({ strapi }: { strapi: Strapi }) => {
                     }
                 });
 
-                Promise.all(
+                await Promise.all(
                     activeForms.map((form) =>
                         strapi.db.query('plugin::api-forms.form').update({
                             where: {
@@ -44,7 +44,7 @@ export default ({ strapi }: { strapi: Strapi }) => {
                     }
                 });
 
-                Promise.all(
+                await Promise.all(
                     inactiveForms.map((form) =>
                         strapi.db.query('plugin::api-forms.form').update({
                             where: {
