@@ -3,65 +3,85 @@
 import { Strapi } from '@strapi/strapi';
 import { format } from 'date-fns';
 
+function compareDateWithToday(dateString: string, future: boolean) {
+	const [day, month, year] = dateString.split('-');
+	const isoDateString = `${year}-${month}-${day}`;
+	const date = new Date(isoDateString);
+	const todayDate = new Date();
+
+	if (!future) {
+		return date.getTime() < todayDate.getTime();
+	}
+
+	return date.getTime() > todayDate.getTime();
+}
+
 export default ({ strapi }: { strapi: Strapi }) => {
-    strapi.cron.add({
-        // runs every night at 00:00
-          formActiveCheck: {
-            task: async ({ strapi }) => {
-                const today = format(new Date(), 'dd-MM-yyyy') + 'T00:00:00.000Z';
-                const activeForms = await strapi.db.query('plugin::api-forms.form').findMany({
-                    where: {
-                        active: true,
-                        date_till: {
-                            $lt: today
-                        }
-                    }
-                });
+	strapi.cron.add({
+		// runs every night at 00:00
+		formActiveCheck: {
+			task: async ({ strapi }) => {
+				const activeForms = await strapi.db.query('plugin::api-forms.form').findMany({
+					where: {
+						active: true,
+						$and: [{ date_till: { $not: '' } }, { date_till: { $notNull: true } }],
+					},
+				});
 
-                Promise.all(
-                    activeForms.map((form) =>
-                        strapi.db.query('plugin::api-forms.form').update({
-                            where: {
-                                id: form.id
-                            },
-                            data: {
-                                active: false
-                            }
-                        })
-                    )
-                );
-                 
+				const pastForms = activeForms.filter((form) => {
+					const [datePart, timePart] = form.dateTill.split('T');
 
-                const inactiveForms = await strapi.db.query('plugin::api-forms.form').findMany({
-                    where: {
-                        active: false,
-                        date_from: {
-                            $gte: today
-                        },
-                        date_till: {
-                            $gte: today
-                        }
-                    }
-                });
+					return compareDateWithToday(datePart);
+				});
 
-                Promise.all(
-                    inactiveForms.map((form) =>
-                        strapi.db.query('plugin::api-forms.form').update({
-                            where: {
-                                id: form.id
-                            },
-                            data: {
-                                active: true
-                            }
-                        })
-                    )
-                )
+				Promise.all(
+					pastForms.map((form) =>
+						strapi.db.query('plugin::api-forms.form').update({
+							where: {
+								id: form.id,
+							},
+							data: {
+								active: false,
+							},
+						})
+					)
+				);
 
-                strapi.log.info('Finished form active CRON');
-            },
-            options: {
-                rule: '0 0  * * *'
-            }
-        }
-    });
+				const inActiveForms = await strapi.db.query('plugin::api-forms.form').findMany({
+					where: {
+						active: false,
+					},
+				});
+
+				const filteredInactiveForms = inActiveForms.filter((form) => {
+					if (form.dateFrom === '' && form.dateTill === '') {
+						return true;
+					}
+
+					const isInPast = compareDateWithToday(form.dateFrom.split('T')[0]);
+					const isInFuture = compareDateWithToday(form.dateTill.split('T')[0], true);
+
+					return isInPast || isInFuture;
+				});
+
+				Promise.all(
+					filteredInactiveForms.map((form) =>
+						strapi.db.query('plugin::api-forms.form').update({
+							where: {
+								id: form.id,
+							},
+							data: {
+								active: true,
+							},
+						})
+					)
+				);
+
+				strapi.log.info('Finished form active CRON');
+			},
+			options: {
+				rule: '0 0 * * *',
+			},
+		},
+	});
 };

@@ -1,19 +1,33 @@
 const { ForbiddenError } = require('@strapi/utils').errors;
 
+function isJSON(str) {
+	try {
+		let newJson = JSON.parse(str);
+		return (typeof newJson === 'object' && newJson !== str) || false;
+	} catch (e) {
+		return false;
+	}
+}
+
 export default {
 	async afterCreate(event) {
 		const { result, params } = event;
-
-		strapi.log.debug('afterCreate');
-		strapi.log.debug(JSON.stringify(result));
 
 		if (!result.id) {
 			throw new ForbiddenError('No form');
 		}
 
-		const defaultEmail = await strapi.plugins['email'].services.email.getProviderSettings().settings.defaultFrom;
+		strapi.log.debug('afterCreate');
+		strapi.log.debug(result);
 
-		const message = JSON.parse(result.fields).map((field) => {
+		const defaultEmail = await strapi.plugins['email'].services.email.getProviderSettings().settings.defaultFrom;
+		console.log(defaultEmail, 'is email');
+		console.log(isJSON(result.fields), 'is fields');
+		const fields = JSON.parse(result.fields);
+		console.log(fields, 'is fields');
+
+		const message = fields.map((field) => {
+			console.log(field);
 			if (field.type === 'file') {
 				return '';
 			}
@@ -26,6 +40,8 @@ export default {
 				'**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;-->  \n'
 			);
 		});
+
+		console.log(message);
 
 		strapi.log.info('messages:');
 		strapi.log.info(message.join('\n').toString());

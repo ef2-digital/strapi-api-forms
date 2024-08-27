@@ -1,16 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const { ForbiddenError } = require('@strapi/utils').errors;
+function isJSON(str) {
+    try {
+        let newJson = JSON.parse(str);
+        return (typeof newJson === 'object' && newJson !== str) || false;
+    }
+    catch (e) {
+        return false;
+    }
+}
 exports.default = {
     async afterCreate(event) {
         const { result, params } = event;
-        strapi.log.debug('afterCreate');
-        strapi.log.debug(JSON.stringify(result));
         if (!result.id) {
             throw new ForbiddenError('No form');
         }
+        strapi.log.debug('afterCreate');
+        strapi.log.debug(result);
         const defaultEmail = await strapi.plugins['email'].services.email.getProviderSettings().settings.defaultFrom;
-        const message = JSON.parse(result.fields).map((field) => {
+        console.log(defaultEmail, 'is email');
+        console.log(isJSON(result.fields), 'is fields');
+        const fields = JSON.parse(result.fields);
+        console.log(fields, 'is fields');
+        const message = fields.map((field) => {
+            console.log(field);
             if (field.type === 'file') {
                 return '';
             }
@@ -20,6 +34,7 @@ exports.default = {
                 field.name +
                 '**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;-->  \n');
         });
+        console.log(message);
         strapi.log.info('messages:');
         strapi.log.info(message.join('\n').toString());
         const notification = await strapi.entityService.create('plugin::api-forms.notification', {
