@@ -55,14 +55,12 @@ function getValueFromSubmissionByKey(key, submission) {
     return submission[key];
 }
 function replaceDynamicVariables(message, submission) {
-    const pattern = /\*\*\s*(.*?)\s*\*\*/g;
+    const pattern = /\*\*([\w\s]*)\*\*\s*?<!--[\s\S]*?-->/;
     let match;
     while ((match = pattern.exec(message)) !== null) {
         const variableName = match[1].replace(/['"]/g, '');
         const variableValue = submission[variableName];
-        if (variableValue !== undefined) {
-            message = message.replace(match[0], variableValue);
-        }
+        message = message.replace(match[0], variableValue !== null && variableValue !== void 0 ? variableValue : '-');
     }
     const commentPattern = /<!--[\s\S]*?-->/g;
     message = message.replace(commentPattern, '');

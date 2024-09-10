@@ -3,7 +3,6 @@ const showdown = require('showdown');
 const request = require('request');
 
 import { FormType, NotificationType, SubmissionType, EmailSubmissionType } from '../../admin/src/utils/types';
-import { contentTypes } from '@strapi/utils';
 
 export default ({ strapi }: { strapi: Strapi }) => ({
 	async process(notification: NotificationType, submission: SubmissionType, form: FormType) {
@@ -75,7 +74,7 @@ function replaceDynamicVariables(message, submission) {
 
 		const variableValue = submission[variableName];
 
-	    	message = message.replace(match[0], variableValue ?? '-');
+		message = message.replace(match[0], variableValue ?? '-');
 	}
 
 	const commentPattern = /<!--[\s\S]*?-->/g;
