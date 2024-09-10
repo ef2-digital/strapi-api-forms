@@ -67,7 +67,7 @@ function getValueFromSubmissionByKey(key, submission) {
 }
 
 function replaceDynamicVariables(message, submission) {
-	const pattern = /\*\*\s*(.*?)\s*\*\*/g;
+	const pattern = /\*\*([\w\s]*)\*\*\s*?<!--[\s\S]*?-->/;
 	let match;
 
 	while ((match = pattern.exec(message)) !== null) {
@@ -75,9 +75,7 @@ function replaceDynamicVariables(message, submission) {
 
 		const variableValue = submission[variableName];
 
-		if (variableValue !== undefined) {
-			message = message.replace(match[0], variableValue);
-		}
+	    	message = message.replace(match[0], variableValue ?? '-');
 	}
 
 	const commentPattern = /<!--[\s\S]*?-->/g;
