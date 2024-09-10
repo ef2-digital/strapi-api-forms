@@ -2,6 +2,7 @@
 
 import { Strapi } from '@strapi/strapi';
 import { format } from 'date-fns';
+import { generateSeedData } from './seeds';
 
 function compareDateWithToday(dateString: string, future: boolean) {
 	const [day, month, year] = dateString.split('-');
@@ -16,7 +17,9 @@ function compareDateWithToday(dateString: string, future: boolean) {
 	return date.getTime() > todayDate.getTime();
 }
 
-export default ({ strapi }: { strapi: Strapi }) => {
+export default async ({ strapi }: { strapi: Strapi }) => {
+	await generateSeedData(strapi);
+
 	strapi.cron.add({
 		// runs every night at 00:00
 		formActiveCheck: {
@@ -58,8 +61,10 @@ export default ({ strapi }: { strapi: Strapi }) => {
 						return true;
 					}
 
-					const isInPast = compareDateWithToday(form.dateFrom.split('T')[0]);
-					const isInFuture = compareDateWithToday(form.dateTill.split('T')[0], true);
+					const isInPast = form.dateFrom ? compareDateWithToday(form.dateFrom.split('T')[0]) : true;
+					const isInFuture = form.dateTill ? compareDateWithToday(form.dateTill.split('T')[0], true) : true;
+
+					console.log(isInFuture);
 
 					return isInPast || isInFuture;
 				});
