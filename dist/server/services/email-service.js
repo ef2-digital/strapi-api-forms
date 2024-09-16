@@ -10,6 +10,7 @@ exports.default = ({ strapi }) => ({
         const fields = JSON.parse(submission.submission);
         const provider = strapi.plugins['email'].services.email.getProviderSettings();
         const message = replaceDynamicVariables(notification.message, fields);
+        console.log(message);
         const emailAddress = validateEmail(notification.to) ? notification.to : getValueFromSubmissionByKey(notification.to, fields);
         const converter = new showdown.Converter({
             tables: true,
@@ -55,11 +56,14 @@ function getValueFromSubmissionByKey(key, submission) {
     return submission[key];
 }
 function replaceDynamicVariables(message, submission) {
-    const pattern = /\*\*([\w\s]*)\*\*\s*?<!--[\s\S]*?-->/;
+    const pattern = /\*\*([\w\s\W]*)\*\*\s*?<!--[\s\S]*?-->/;
     let match;
     while ((match = pattern.exec(message)) !== null) {
-        const variableName = match[1].replace(/['"]/g, '');
+        const variableName = match[1].replace(/['"]/g, '').trim().toLowerCase();
         const variableValue = submission[variableName];
+        if (!variableValue) {
+            console.log('no value found for variable: ', variableName, submission);
+        }
         message = message.replace(match[0], variableValue !== null && variableValue !== void 0 ? variableValue : '-');
     }
     const commentPattern = /<!--[\s\S]*?-->/g;

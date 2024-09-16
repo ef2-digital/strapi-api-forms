@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { NotificationType } from '../../utils/types';
-// import MDEditor from "@uiw/react-md-editor";
+import MDEditor from '@uiw/react-md-editor';
 
 /*
  * Strapi Design system
@@ -108,12 +108,12 @@ const RichTextEditor = ({
 			</Box>
 
 			<>
-				{/* <MDEditor
-          preview="live"
-          value={message}
-          onChange={(value, event) => handleTextareaChange(event)}
-          onKeyDown={handleTextareaKeyDown}
-        /> */}
+				<MDEditor
+					preview="live"
+					value={message}
+					onChange={(value, event) => handleTextareaChange(event)}
+					onKeyDown={handleTextareaKeyDown}
+				/>
 			</>
 		</Stack>
 	);
