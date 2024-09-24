@@ -10,7 +10,6 @@ exports.default = ({ strapi }) => ({
         const fields = JSON.parse(submission.submission);
         const provider = strapi.plugins['email'].services.email.getProviderSettings();
         const message = replaceDynamicVariables(notification.message, fields);
-        console.log(message);
         const emailAddress = validateEmail(notification.to) ? notification.to : getValueFromSubmissionByKey(notification.to, fields);
         const converter = new showdown.Converter({
             tables: true,
@@ -56,19 +55,16 @@ function getValueFromSubmissionByKey(key, submission) {
     return submission[key];
 }
 function replaceDynamicVariables(message, submission) {
-    const pattern = /\*\*([\w\s\W]*)\*\*\s*?<!--[\s\S]*?-->/;
-    let match;
-    while ((match = pattern.exec(message)) !== null) {
-        const variableName = match[1].replace(/['"]/g, '').trim().toLowerCase();
-        const variableValue = submission[variableName];
-        if (!variableValue) {
-            console.log('no value found for variable: ', variableName, submission);
+    let replacedMessage = message;
+    // Iterate over the keys in the normalized submission object
+    for (const key in submission) {
+        if (submission.hasOwnProperty(key)) {
+            const placeholder = `**${key}**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;-->`;
+            const value = submission[key] !== undefined ? submission[key] : '-';
+            replacedMessage = replacedMessage.replace(placeholder, value);
         }
-        message = message.replace(match[0], variableValue !== null && variableValue !== void 0 ? variableValue : '-');
     }
-    const commentPattern = /<!--[\s\S]*?-->/g;
-    message = message.replace(commentPattern, '');
-    return message;
+    return replacedMessage;
 }
 async function getFiles(submission, provider) {
     const files = await Promise.all(submission.files.map((file) => {
