@@ -10,6 +10,7 @@ exports.default = ({ strapi }) => ({
         const fields = JSON.parse(submission.submission);
         const provider = strapi.plugins['email'].services.email.getProviderSettings();
         const message = replaceDynamicVariables(notification.message, fields);
+        return;
         const emailAddress = validateEmail(notification.to) ? notification.to : getValueFromSubmissionByKey(notification.to, fields);
         const converter = new showdown.Converter({
             tables: true,
@@ -61,9 +62,13 @@ function replaceDynamicVariables(message, submission) {
         if (submission.hasOwnProperty(key)) {
             const placeholder = `**${key}**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;-->`;
             const value = submission[key] !== undefined ? submission[key] : '-';
+            console.log(placeholder, value);
             replacedMessage = replacedMessage.replace(placeholder, value);
         }
     }
+    console.log('-------------------');
+    console.log(replacedMessage);
+    console.log('-------------------');
     return replacedMessage;
 }
 async function getFiles(submission, provider) {

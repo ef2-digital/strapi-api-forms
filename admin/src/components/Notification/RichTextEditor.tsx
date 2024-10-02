@@ -1,16 +1,19 @@
 //@ts-nocheck
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { NotificationType } from '../../utils/types';
 import MDEditor from '@uiw/react-md-editor';
 
 /*
  * Strapi Design system
  */
-import { Button, Box, Typography, Stack } from '@strapi/design-system';
+import { Button, Box, Typography, Stack, Tooltip } from '@strapi/design-system';
 
 import { useIntl } from 'react-intl';
 import pluginId from '../../pluginId';
+import { Refresh } from '@strapi/icons';
+import { FormContext } from '../../hooks/useForm';
+import formRequests from '../../api/form';
 
 type FieldObject = {
 	label: string;
@@ -24,6 +27,7 @@ const RichTextEditor = ({
 	fields: FieldObject[];
 	setValue: Function;
 }) => {
+	const { dispatch, state } = useContext(FormContext);
 	const [message, setMessage] = useState<string>('');
 	const { formatMessage } = useIntl();
 	const [cursorPosition, setCursorPosition] = useState<number>(0);
@@ -42,6 +46,16 @@ const RichTextEditor = ({
 
 		setMessage(value);
 	}, []);
+
+	const resetMessage = async () => {
+		const originalMessage = await formRequests.getMessage(state.form?.id!);
+
+		if (!originalMessage.message) {
+			return;
+		}
+
+		setMessage(originalMessage.message);
+	};
 
 	const insertFieldIntoMessage = (field: { label: string }) => {
 		const beforeCursor = message.substring(0, cursorPosition);
@@ -89,6 +103,20 @@ const RichTextEditor = ({
 			</Typography>
 
 			<Box>
+				<Tooltip label="Reset message to default" style={{ zIndex: '100000' }}>
+					<Button
+						onClick={() => resetMessage()}
+						style={{
+							display: 'inline',
+							width: 'auto',
+							margin: '.25rem',
+							padding: '0rem 1rem',
+						}}
+					>
+						<Refresh />
+					</Button>
+				</Tooltip>
+
 				{fields.map((field, index) => {
 					return (
 						<Button

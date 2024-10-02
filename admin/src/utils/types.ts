@@ -10,6 +10,9 @@ export interface PaginationObject {
 	};
 }
 
+export interface MessageType {
+	data: { message: string };
+}
 export interface FormResponse {
 	data: FormType[] | [];
 	meta: PaginationObject;

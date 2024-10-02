@@ -60,6 +60,14 @@ exports.default = {
                 },
             },
             {
+                method: 'GET',
+                path: '/form/:id/message',
+                handler: 'form.message',
+                config: {
+                    policies: ['admin::isAuthenticatedAdmin'],
+                },
+            },
+            {
                 method: 'POST',
                 path: '/forms',
                 handler: 'form.create',

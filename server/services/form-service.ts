@@ -1,21 +1,18 @@
-import { factories } from "@strapi/strapi";
+import { factories } from '@strapi/strapi';
 
-export default factories.createCoreService(
-  "plugin::api-forms.form",
-  ({ strapi }) => ({
-    async dashboard(params) {
-      params = Object.assign({ ...params }, { populate: "*" });
+export default factories.createCoreService('plugin::api-forms.form', ({ strapi }) => ({
+	async dashboard(params) {
+		params = Object.assign({ ...params }, { populate: '*' });
 
-      let { results, pagination } = await super.find(params);
+		let { results, pagination } = await super.find(params);
 
-      results = results.map((result) => {
-        return {
-          id: result.id,
-          attributes: (({ id, ...object }) => object)(result),
-        };
-      });
+		results = results.map((result) => {
+			return {
+				id: result.id,
+				attributes: (({ id, ...object }) => object)(result),
+			};
+		});
 
-      return { results, pagination };
-    },
-  })
-);
+		return { results, pagination };
+	},
+}));

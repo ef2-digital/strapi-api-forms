@@ -51,6 +51,32 @@ export default factories.createCoreController('plugin::api-forms.form', ({ strap
 		};
 	},
 
+	async message(ctx) {
+		const { id } = ctx.params;
+
+		const data = await strapi.service('plugin::api-forms.form')!.findOne(id);
+		const fields = JSON.parse(data.fields);
+		const message = fields.map((field) => {
+			if (field.type === 'file') {
+				return '';
+			}
+
+			return (
+				'**' +
+				field.label +
+				'**: **' +
+				field.name +
+				'**<!--rehype:style=font-size: 12px;color: white; background: #4945ff;padding:4px; padding-right: 16px;padding-left: 16px;border-radius: 4px;-->  \n'
+			);
+		});
+
+		return {
+			data: {
+				message: message.join('\n').toString(),
+			},
+		};
+	},
+
 	async dashboard(ctx) {
 		const sanitizedQuery = await this.sanitizeQuery(ctx);
 

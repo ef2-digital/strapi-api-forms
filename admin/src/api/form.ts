@@ -1,5 +1,5 @@
 import fetchInstance from '../utils/fetch';
-import { FormResponse, FormType, FormRequest } from '../utils/types';
+import { FormResponse, FormType, FormRequest, MessageType } from '../utils/types';
 
 const formRequests = {
 	getForms: async (queryFilter?: object): Promise<FormResponse> => {
@@ -13,6 +13,13 @@ const formRequests = {
 		const form = await data.json();
 
 		return form.data;
+	},
+
+	getMessage: async (id: string | number): Promise<MessageType> => {
+		const data = await fetchInstance(`form/${id}/message`, 'GET', null, null, true);
+		const message = await data.json();
+
+		return message.data;
 	},
 
 	getFormSubmissions: async (id: string, queryFilter?: object): Promise<FormType> => {
