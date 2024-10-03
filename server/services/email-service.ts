@@ -14,7 +14,6 @@ export default ({ strapi }: { strapi: Strapi }) => ({
 		const provider = strapi.plugins['email'].services.email.getProviderSettings();
 
 		const message = replaceDynamicVariables(notification.message, fields);
-		return;
 		const emailAddress = validateEmail(notification.to) ? notification.to : getValueFromSubmissionByKey(notification.to, fields);
 		const converter = new showdown.Converter({
 			tables: true,
